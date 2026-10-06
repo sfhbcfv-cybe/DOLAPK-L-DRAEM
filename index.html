@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دولابك لدريم</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --yellow:#ffd000;
+    --orange:#ff9800;
+    --red:#e53935;
+    --bg:#090909;
+    --glass:rgba(20,20,20,.48);
+    --border:rgba(255,255,255,.13);
+    --text:#fff;
+    --muted:#cfcfcf;
+}
+
+body{
+    font-family:Arial,Tahoma,sans-serif;
+    background:
+        radial-gradient(circle at 15% 5%,rgba(255,208,0,.16),transparent 28%),
+        radial-gradient(circle at 90% 20%,rgba(229,57,53,.18),transparent 30%),
+        linear-gradient(135deg,#080808,#17100b 50%,#090909);
+    color:var(--text);
+    min-height:100vh;
+    padding-bottom:92px;
+}
+
+button{
+    font-family:inherit;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    padding:14px 14px 10px;
+    background:rgba(5,5,5,.42);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.brand{
+    text-align:center;
+    font-size:28px;
+    font-weight:900;
+    margin-bottom:12px;
+    background:linear-gradient(
+        90deg,
+        #fff3a1,
+        var(--yellow),
+        var(--red)
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.search{
+    width:100%;
+    height:48px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    outline:none;
+    padding:0 18px;
+    font-size:16px;
+    backdrop-filter:blur(16px);
+}
+
+.search::placeholder{
+    color:#ddd;
+}
+
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:18px 13px;
+}
+
+.page{
+    display:none;
+    animation:fade .25s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(5px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.hero{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,208,0,.16),
+            rgba(229,57,53,.13)
+        );
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:22px;
+    text-align:center;
+    margin-bottom:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.22);
+}
+
+.hero h1{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin:22px 3px 12px;
+    font-size:21px;
+}
+
+.section-title:before{
+    content:"";
+    width:5px;
+    height:25px;
+    border-radius:8px;
+    background:linear-gradient(
+        var(--yellow),
+        var(--red)
+    );
+}
+
+.leagues,
+.teams,
+.countries{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(145px,1fr));
+    gap:12px;
+}
+
+.card{
+    border:1px solid var(--border);
+    background:var(--glass);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+    border-radius:19px;
+    padding:14px;
+    color:#fff;
+    cursor:pointer;
+    transition:.2s;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,208,0,.5);
+}
+
+.league-card{
+    text-align:center;
+    min-height:115px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:7px;
+}
+
+.league-icon{
+    font-size:35px;
+}
+
+.team-card{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-height:76px;
+}
+
+.team-card img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.team-card .small{
+    color:#aaa;
+    font-size:12px;
+}
+
+.back{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    padding:10px 16px;
+    border-radius:14px;
+    cursor:pointer;
+    margin-bottom:14px;
+}
+
+.back:hover{
+    background:rgba(255,255,255,.13);
+}
+
+.team-box{
+    background:rgba(10,10,10,.46);
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:17px;
+    margin-bottom:17px;
+    backdrop-filter:blur(16px);
+}
+
+.team-head{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:15px;
+}
+
+.team-head img{
+    width:62px;
+    height:62px;
+    object-fit:contain;
+}
+
+.team-head h3{
+    font-size:21px;
+}
+
+.kits{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(125px,1fr));
+    gap:12px;
+}
+
+.kit{
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:17px;
+    padding:10px;
+    text-align:center;
+}
+
+.kit img{
+    width:100%;
+    height:170px;
+    object-fit:contain;
+    background:rgba(255,255,255,.025);
+    border-radius:12px;
+    margin-bottom:9px;
+}
+
+.kit-name{
+    font-size:13px;
+    color:#eee;
+    margin-bottom:7px;
+}
+
+.copy{
+    border:0;
+    width:100%;
+    padding:9px;
+    border-radius:11px;
+    cursor:pointer;
+    color:#111;
+    background:
+        linear-gradient(
+            90deg,
+            var(--yellow),
+            #ffb300
+        );
+    font-weight:800;
+    transition:.2s;
+}
+
+.copy:hover{
+    filter:brightness(1.08);
+}
+
+.copy.copied{
+    background:#55d66a;
+}
+
+.empty{
+    text-align:center;
+    padding:30px;
+    border:1px dashed var(--border);
+    border-radius:20px;
+    color:#bbb;
+}
+
+.bottom{
+    position:fixed;
+    z-index:60;
+    bottom:10px;
+    left:10px;
+    right:10px;
+    max-width:800px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    padding:7px;
+    background:rgba(15,15,15,.58);
+    border:1px solid var(--border);
+    border-radius:22px;
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    box-shadow:0 12px 35px rgba(0,0,0,.35);
+}
+
+.nav-btn{
+    background:transparent;
+    color:#ddd;
+    border:0;
+    border-radius:16px;
+    padding:10px 5px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.nav-btn.active{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,208,0,.22),
+            rgba(229,57,53,.22)
+        );
+    color:#fff;
+}
+
+.nav-icon{
+    display:block;
+    font-size:21px;
+    margin-bottom:3px;
+}
+
+.about-box{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:20px;
+    line-height:2;
+    text-align:center;
+}
+
+.link-btn{
+    display:block;
+    text-decoration:none;
+    color:#fff;
+    margin:12px 0;
+    padding:13px;
+    border-radius:15px;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,208,0,.2),
+            rgba(229,57,53,.2)
+        );
+    border:1px solid var(--border);
+}
+
+.small-note{
+    color:#aaa;
+    font-size:12px;
+    margin-top:10px;
+}
+
+@media(max-width:600px){
+
+    .brand{
+        font-size:24px;
+    }
+
+    .kits{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .kit img{
+        height:145px;
+    }
+
+    .leagues,
+    .teams,
+    .countries{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+        دولابك لدريم
+    </div>
+
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="دور على فريقك أو منتخب أو دوري..."
+    >
+
+</header>
+
+
+<main>
+
+<!-- الصفحة الرئيسية -->
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <h1>
+            دولابك لدريم ⚽
+        </h1>
+
+        <p>
+            كل أطقم الأندية والمنتخبات في مكان واحد،
+            مع إمكانية نسخ رابط كل صورة بضغطة واحدة.
+        </p>
+
+    </div>
+
+
+    <h2 class="section-title">
+        الدوريات
+    </h2>
+
+    <div
+        id="leagueList"
+        class="leagues">
+    </div>
+
+</section>
+
+
+<!-- صفحة الدوري -->
+<section id="leaguePage" class="page">
+
+    <button
+        class="back"
+        onclick="goHome()">
+        ← رجوع للدوريات
+    </button>
+
+    <div
+        id="leagueTitle"
+        class="hero">
+    </div>
+
+    <div
+        id="teamList"
+        class="teams">
+    </div>
+
+</section>
+
+
+<!-- صفحة الفريق -->
+<section id="teamPage" class="page">
+
+    <button
+        class="back"
+        onclick="backToLeague()">
+        ← رجوع
+    </button>
+
+    <div id="teamKits">
+    </div>
+
+</section>
+
+
+<!-- صفحة المنتخبات -->
+<section id="countries" class="page">
+
+    <div class="hero">
+
+        <h1>
+            المنتخبات 🌍
+        </h1>
+
+        <p>
+            أطقم المنتخبات المتاحة.
+        </p>
+
+    </div>
+
+    <div
+        id="countryList"
+        class="countries">
+    </div>
+
+    <div
+        id="countryKits"
+        style="margin-top:18px">
+    </div>
+
+</section>
+
+
+<!-- من نحن -->
+<section id="about" class="page">
+
+    <div class="hero">
+
+        <h1>
+            من نحن
+        </h1>
+
+        <p>
+            دولابك لدريم هو مكتب مرتب للأطقم DLS.
+        </p>
+
+    </div>
+
+
+    <div class="about-box">
+
+        <h2>
+            الجروبات والحسابات
+        </h2>
+
+        <a
+            class="link-btn"
+            href="https://t.me/KitDlsStar"
+            target="_blank">
+
+            📢 جروب / قناة دولابك لدريم
+
+        </a>
+
+
+        <h2 style="margin-top:20px">
+
+            التواصل الخاص
+
+        </h2>
+
+        <a
+            class="link-btn"
+            href="https://t.me/Hedoo1515"
+            target="_blank">
+
+            💬 @Hedoo1515
+
+        </a>
+
+
+        <div class="small-note">
+
+            دوس على أي رابط علشان تفتحه.
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- الشريط السفلي -->
+<nav class="bottom">
+
+    <button
+        class="nav-btn active"
+        data-page="home">
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        الرئيسية
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        data-page="countries">
+
+        <span class="nav-icon">
+            🌍
+        </span>
+
+        المنتخبات
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        data-page="about">
+
+        <span class="nav-icon">
+            ⓘ
+        </span>
+
+        من نحن
+
+    </button>
+
+</nav>
+
+
+<script>
+
+/*
+=========================================================
+منطقة البيانات
+هنا تقدر تضيف أو تعدل الفرق والأطقم بسهولة.
+=========================================================
+*/
+
+
+const leagues = [
+
+/* =========================
+   الدوري الإنجليزي
+========================= */
+
+{
+    id:"english",
+    name:"الدوري الإنجليزي",
+    icon:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    teams:[
+        {
+            name:"Liverpool",
+            logo:
+            "https://up6.cc/2026/08/178791008112484.png",
+            kits:[
+                ["الأساسي","https://up6.cc/2026/08/178790437135541.png"],
+                ["الاحتياطي","https://up6.cc/2026/08/178790640768361.png"],
+                ["الثالث","https://up6.cc/2026/08/178790951922441.png"],
+                ["الحارس 1","https://up6.cc/2026/08/178790951924612.png"],
+                ["الحارس 2","https://up6.cc/2026/08/178790951927693.png"],
+                ["الحارس 3","https://up6.cc/2026/08/178790987966464.png"]
+            ]
+        },
+
+        {
+            name:"Man City",
+            logo:
+            "https://up6.cc/2026/08/178804323619851.png",
+            kits:[
+                ["الأساسي","https://up6.cc/2026/08/178801606929921.png"],
+                ["الاحتياطي","https://up6.cc/2026/08/178801606935192.png"],
+                ["الثالث","https://up6.cc/2026/08/178801831469181.png"],
+                ["الحارس 1","https://up6.cc/2026/08/178804074249051.png"],
+                ["الحارس 2","https://up6.cc/2026/08/178804155240461.png"],
+                ["الحارس 3","https://up6.cc/2026/08/178804275324171.png"]
+
+           ] 
+        },
+
+
+        {
+            name:"Man United",
+
+            logo:
+            "https://up6.cc/2026/08/178811994776821.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/08/178811203650731.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/08/178816392680184.png"
+                ],
+
+                [
+                    "الثالث",
+                    "https://up6.cc/2026/08/178816382016091.png"
+                ],
+
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/08/178811897750491.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/08/178811897752912.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/08/178811897754913.png"
+                ]
+
+            ]
+        }
+
+    ]
+},
+
+
+/* =========================
+   الدوري الإسباني
+========================= */
+
+{
+    id:"spanish",
+
+    name:"الدوري الإسباني",
+
+    icon:"🇪🇸",
+
+    teams:[
+
+        {
+            name:"Real Madrid",
+
+            logo:
+            "https://up6.cc/2026/08/178738221288634.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/08/178739617485991.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/08/178746740912734.png"
+                ],
+
+                [
+                    "الثالث",
+                    "https://up6.cc/2026/08/1787396174933.png"
+                ],
+
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/08/178739617495474.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/08/178739629029491.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/08/178739629032182.png"
+                ]
+
+            ]
+        },
+
+
+        {
+            name:"Barcelona",
+
+            logo:
+            "https://up6.cc/2026/08/17877306242481.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/08/178764659418543.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/08/178769685717291.png"
+                ],
+
+                [
+                    "الثالث",
+                    "https://up6.cc/2026/08/178771859760424.png"
+                ],
+
+                [
+                    "الحارس الأساسي",
+                    "https://up6.cc/2026/08/178772356423231.png"
+                ],
+
+                [
+                    "الحارس الاحتياطي",
+                    "https://up6.cc/2026/08/178773052311381.png"
+                ],
+
+                [
+                    "الحارس الثالث",
+                    "https://up6.cc/2026/08/17877235642672.png"
+                ]
+
+            ]
+        }
+
+    ]
+},
+
+
+/* =========================
+   الدوري الفرنسي
+========================= */
+
+{
+    id:"french",
+
+    name:"الدوري الفرنسي",
+
+    icon:"🇫🇷",
+
+    teams:[
+
+        {
+            name:"PSG",
+
+            logo:
+            "https://up6.cc/2026/09/178928500183921.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/09/178928500186912.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/09/178928500189463.png"
+                ],
+
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/09/178928500192394.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/09/178928508623451.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/09/178928508625372.png"
+                ]
+
+            ]
+        }
+
+    ]
+},
+
+
+/* =========================
+   الدوري الألماني
+========================= */
+
+{
+    id:"german",
+
+    name:"الدوري الألماني",
+
+    icon:"🇩🇪",
+
+    teams:[
+
+        {
+            name:"FC BAYERN",
+
+            logo:
+            "https://up6.cc/2026/09/178871982111231.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/09/178902146656221.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/09/178871982118853.png"
+                ],
+                
+                [
+                    "الثالث",
+                    "https://up6.cc/2026/09/17888160635881.png"
+                ],
+
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/09/178871998774131.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/09/178871998775442.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/09/178872006334851.png"
+                ]
+
+            ]
+        }
+
+    ]
+},
+
+
+/* =========================
+   الدوري الأطالي
+========================= */
+
+{
+    id:"italian",
+
+    name:"الدوري الإيطالي",
+
+    icon:"🇮🇹",
+
+    teams:[
+
+        {
+            name:"ROMA",
+
+            logo:
+            "https://up6.cc/2026/10/179103317464411.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/10/179097007126164.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://up6.cc/2026/10/179102234050541.png"
+                ],
+[
+                    "الثالث",
+                    "https://up6.cc/2026/10/179102423208161.png"
+                ],
+
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/10/179102488831181.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/10/179102488835082.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/10/179102488837853.png"
+                ]
+
+            ]
+        }
+
+    ]
+},
+
+
+
+
+/* =========================
+   الدوري المصري
+========================= */
+
+{
+    id:"egyptian",
+
+    name:"الدوري المصري",
+
+    icon:"🇪🇬",
+
+    teams:[
+
+        {
+            name:" Al Ahly",
+
+            logo:
+            "https://j.top4top.io/p_3870wdl2d8.png",
+
+            kits:[
+
+                [
+                    "الأساسي",
+                    "https://up6.cc/2026/09/179068237065411.png"
+                ],
+
+                [
+                    "الاحتياطي",
+                    "https://g.top4top.io/p_3879gmt8x6.png"
+                ],
+
+                [
+                    "الثالث",
+                    "https://i.top4top.io/p_3883c5eqq8.png"
+                ],
+                
+                [
+                    "الحارس 1",
+                    "https://up6.cc/2026/08/178737291469651.png"
+                ],
+
+                [
+                    "الحارس 2",
+                    "https://up6.cc/2026/08/178737291471832.png"
+                ],
+
+                [
+                    "الحارس 3",
+                    "https://up6.cc/2026/08/178737291474293.png"
+                ]
+
+            ]
+        },
+        
+        
+        {
+            name:" zamalk sc",
+            logo:
+            "https://up6.cc/2026/10/179127597896381.png",
+            kits:[
+                ["الأساسي","https://up6.cc/2026/10/179122403272781.png"],
+                ["الاحتياطي","https://up6.cc/2026/10/179127456216571.png"],
+                ["الحارس الأساسي","https://up6.cc/2026/10/179127581802171.png"],
+                ["الحارس الاحتياطي","https://up6.cc/2026/10/179127581804522.png"],
+                ["الحارس الثالث","https://up6.cc/2026/10/179127581807534.png"]
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================
+   الدوري الفرنسي
+========================= */
+
+{
+    id:"Saudi Arabia",
+
+    name:"الدوري السعودي",
+
+    icon:"🇸🇦",
+
+    teams:[
+
+        {
+            name:"لم يتم التنزيل بعد ",
+
+            logo:
+            "https://d.top4top.io/p_3931hty7f8.png",
+
+            kits:[
+
+                
+
+            ]
+        }
+
+    ]
+},
+
+/* =========================
+   الأطقم المميز
+========================= */
+
+{
+    id:"stars",
+
+    name:"الأطقم المميزة",
+
+    icon:"✨️",
+
+    teams:[
+
+        {
+            name:"man united 2008",
+
+            logo:
+            "https://up6.cc/2026/08/178811994776821.png",
+
+
+            kits:[
+
+                ["man united 2008","https://up6.cc/2026/10/179089490508291.png"],
+
+            ]
+        }
+
+    ]
+}
+
+];
+
+
+/* =====================================================
+   المنتخبات
+===================================================== */
+
+
+const countries = [
+
+{
+    name:"Argentina",
+    flag:"🇦🇷",
+
+    logo:
+    "https://a.top4top.io/p_392565q9n0.png",
+    kits:[
+        ["الأساسي","https://b.top4top.io/p_3925sqsz51.png"],
+        ["الاحتياطي","https://c.top4top.io/p_39252zgxi2.png"],
+        ["الحارس الأساسي","https://d.top4top.io/p_3925j4r9m3.png"],
+        ["الحارس الاحتياطي","https://e.top4top.io/p_3925q0io04.png"],
+        ["الحارس الثالث","https://f.top4top.io/p_3925xhpu15.png"]
+    ]
+},
+
+
+{
+    name:"Portugal",
+    flag:"🇵🇹",
+
+    logo:
+    "https://g.top4top.io/p_39256glzq0.png",
+    kits:[
+        ["الأساسي","https://a.top4top.io/p_3925790ib0.png"],
+        ["الاحتياطي","https://c.top4top.io/p_39254otvw0.png"],
+        ["الحارس الأساسي","https://d.top4top.io/p_392577dqk1.png"],
+        ["الحارس الاحتياطي","https://h.top4top.io/p_3925f8nsj9.png"],
+        ["الحارس الثالث","https://i.top4top.io/p_39259ojzx0.png"]
+    ]
+},
+
+
+{
+    name:"Spain",
+    flag:"🇪🇸",
+
+    logo:
+    "https://j.top4top.io/p_3848a63oh8.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_3846uobyh6.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_3846thc6z0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://k.top4top.io/p_38482qc449.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_38482ouu03.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://c.top4top.io/p_3848i2q4q4.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Franca",
+    flag:"🇫🇷",
+
+    logo:
+    "https://up6.cc/2026/09/179071368034181.png",
+
+    kits:[
+        
+        [
+            "الأساسي",
+            "https://h.top4top.io/p_3791abf4w0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://a.top4top.io/p_37916wipv0.png"
+        ],
+
+        [
+            "الحارس 1",
+            "https://d.top4top.io/p_3791y5jm90.png"
+        ],
+
+        [
+            "الحارس 2",
+            "https://g.top4top.io/p_3791i07v04.png"
+        ],
+
+        [
+            "الحارس 3",
+            "https://d.top4top.io/p_3791osb6u0.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"England",
+    flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+
+    logo:
+    "https://l.top4top.io/p_3925yn82x3.png",
+    kits:[
+        ["الأساسي","https://h.top4top.io/p_3792jqie60.png"],
+        ["الاحتياطي","https://k.top4top.io/p_3793w8qmx0.png"],
+        ["الحارس الأساسي","https://a.top4top.io/p_3793fg63l0.png"],
+        
+    ]
+},
+
+
+{
+    name:"Egypt",
+    flag:"🇪🇬",
+
+    logo:
+    "https://e.top4top.io/p_3925xdz656.png",
+    kits:[
+        ["الأساسي","https://c.top4top.io/p_3925r8z9w0.png"],
+        ["الاحتياطي","https://d.top4top.io/p_39251w6qa1.png"],
+        ["الحارس الأساسي","https://e.top4top.io/p_3925lkr452.png"],
+        ["الحارس الاحتياطي","https://f.top4top.io/p_39251weof3.png"],
+        ["الحارس الثالث","https://g.top4top.io/p_3925497vq4.png"]
+    ]
+},
+
+
+{
+    name:"Morocco",
+    flag:"🇲🇦",
+
+    logo:
+    "https://d.top4top.io/p_39251sgr66.png",
+    kits:[
+        ["الأساسي","https://h.top4top.io/p_3925ts44t0.png"],
+        ["الاحتياطي","https://a.top4top.io/p_3925n6sef1.png"],
+        ["الحارس الأساسي","https://b.top4top.io/p_3925ltveo2.png"],
+        ["الحارس الاحتياطي","https://c.top4top.io/p_3925tccdy3.png"],
+        ["الحارس الثالث","https://d.top4top.io/p_3925ew9ld4.png"]
+    ]
+},
+
+
+{
+    name:"Croatia",
+    flag:"🇭🇷",
+
+    logo:
+    "https://up6.cc/2026/06/178041150223461.png",
+    kits:[
+        ["الأساسي","https://up6.cc/2026/10/179087109396121.png"],
+        ["الاحتياطي","https://up6.cc/2026/10/179087133044971.png"],
+        ["الحارس الأساسي","https://up6.cc/2026/10/179087157670141.png"],
+        ["الحارس الاحتياطي","https://up6.cc/2026/10/179087157676192.png"],
+        ["الحارس الثالث","https://up6.cc/2026/10/179087157679573.png"]
+    ]
+},
+
+
+{
+    name:"Mexico",
+    flag:"🇲🇽",
+
+    logo:
+    "https://i.top4top.io/p_3882s3sfx0.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://up6.cc/2026/09/179071368037772.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://d.top4top.io/p_3882sk4066.png"
+        ],
+
+        [
+            "الثالث",
+            "https://d.top4top.io/p_3882eva387.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://e.top4top.io/p_3882drs6b6.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://c.top4top.io/p_3882cwqji3.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://c.top4top.io/p_38821w0us6.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Sweden",
+    flag:"🇸🇪",
+
+    logo:
+    "https://d.top4top.io/p_3882knyg30.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://up6.cc/2026/09/179068232959931.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://i.top4top.io/p_3881cb58b6.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://e.top4top.io/p_38820jo211.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://f.top4top.io/p_3882kdkmd2.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://g.top4top.io/p_38821s4rq3.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Korea",
+    flag:"🇰🇷",
+
+    logo:
+    "https://e.top4top.io/p_3881dj5b26.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_3880b4qwc8.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://e.top4top.io/p_3880n8tv56.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://e.top4top.io/p_3880uh4e87.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://d.top4top.io/p_3881ysodr4.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://l.top4top.io/p_38818svhz0.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Senegal",
+    flag:"🇸🇳",
+
+    logo:
+    "https://e.top4top.io/p_3879pn1319.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://i.top4top.io/p_38809fkpp4.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://j.top4top.io/p_38806kjwc5.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://h.top4top.io/p_3879rl63q1.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://i.top4top.io/p_3879ik0rv2.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://g.top4top.io/p_38795lbr20.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Canada",
+    flag:"🇨🇦",
+
+    logo:
+    "https://b.top4top.io/p_3879oq85v0.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://b.top4top.io/p_3877cr4gq1.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://c.top4top.io/p_3877ptpc72.png"
+        ],
+
+        [
+            "الثالث",
+            "https://d.top4top.io/p_3879w3z2v9.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://j.top4top.io/p_38717kfm61.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_3871ntnca7.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://j.top4top.io/p_38797nmv47.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Colombia",
+    flag:"🇨🇴",
+
+    logo:
+    "https://c.top4top.io/p_3871r4ay78.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://i.top4top.io/p_3871pyljy0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_387174agb2.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://j.top4top.io/p_38717kfm61.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://j.top4top.io/p_3871e7jbe9.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://a.top4top.io/p_3871ntnca7.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Qatar",
+    flag:"🇶🇦",
+
+    logo:
+    "https://c.top4top.io/p_3866yiqe39.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_38662bg0b8.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://i.top4top.io/p_3865elx7q0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://l.top4top.io/p_3866f4mzb6.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_3866kqs0q7.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://b.top4top.io/p_3866lfnct8.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Türkiye",
+    flag:"🇹🇷",
+
+    logo:
+    "https://up6.cc/2026/07/178543311223271.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://h.top4top.io/p_3863uwq4n0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://up6.cc/2026/07/178538313989181.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://up6.cc/2026/07/178543311226752.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://up6.cc/2026/07/178543311230233.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://up6.cc/2026/07/178543311231734.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Uruguay",
+    flag:"🇺🇾",
+
+    logo:
+    "https://h.top4top.io/p_3860gfdj11.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://j.top4top.io/p_3859bmaxv0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_3859m979n1.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://l.top4top.io/p_3859wjcq52.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_3859t5e2o3.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://j.top4top.io/p_3859499zu8.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Saudi Arabia",
+    flag:"🇸🇦",
+
+    logo:
+    "https://c.top4top.io/p_3858wh0a00.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://d.top4top.io/p_3858as1571.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://e.top4top.io/p_3858y96ro2.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://f.top4top.io/p_3858n86tz3.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://g.top4top.io/p_385842koh4.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://h.top4top.io/p_38583v3l75.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Belgium",
+    flag:"🇧🇪",
+
+    logo:
+    "https://b.top4top.io/p_3852skmrq6.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://i.top4top.io/p_3852ropes8.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://g.top4top.io/p_38529at3z1.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://a.top4top.io/p_3852fgfeo6.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://b.top4top.io/p_3852locj47.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://c.top4top.io/p_385256f908.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Norway",
+    flag:"🇳🇴",
+
+    logo:
+    "https://g.top4top.io/p_38519otn41.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_38501ly9g8.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://a.top4top.io/p_38504k2897.png"
+        ],
+
+        [
+            "الثالث",
+            "https://c.top4top.io/p_38506wjzt1.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://k.top4top.io/p_38507x2dh3.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://j.top4top.io/p_38503qlmb2.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://i.top4top.io/p_3850e1r121.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Germany",
+    flag:"🇩🇪",
+
+    logo:
+    "https://b.top4top.io/p_3844wo5ki5.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://d.top4top.io/p_38437hdxr1.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://l.top4top.io/p_3844cq2ab0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://d.top4top.io/p_38446l3gd2.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_3844qjram9.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://g.top4top.io/p_3844jyh4m1.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Algeria",
+    flag:"🇩🇿",
+
+    logo:
+    "https://c.top4top.io/p_3821anq669.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://h.top4top.io/p_3821yzcnn0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://g.top4top.io/p_3925ceaft0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://j.top4top.io/p_3821d7e0a2.png"
+        ],
+
+        [
+            "الحارس الثاني",
+            "https://k.top4top.io/p_3821umadd3.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://l.top4top.io/p_3821rgjvg4.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Kit America",
+    flag:"🇺🇸",
+
+    logo:
+    "https://b.top4top.io/p_38085lfrv0.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://j.top4top.io/p_3808smb4f0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_3808ionxv0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://h.top4top.io/p_38074qe9a0.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://c.top4top.io/p_3807i8mex0.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Kit Holland",
+    flag:"🇳🇱",
+
+    logo:
+    "https://f.top4top.io/p_3804d34wv0.png",
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_3804eqvc50.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_3804j1jaq0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://g.top4top.io/p_38035v4190.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://i.top4top.io/p_3804vb8zh0.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://g.top4top.io/p_3804dtddn0.png"
+        ]
+
+    ]
+},
+
+
+{
+    name:"Brazil",
+    flag:"🇧🇷",
+
+    logo:
+    "https://e.top4top.io/p_3925wbhro9.png",
+
+
+    kits:[
+
+        [
+            "الأساسي",
+            "https://c.top4top.io/p_3792hp2zx0.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://d.top4top.io/p_3792bel0y1.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://j.top4top.io/p_3792aw8hi0.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://l.top4top.io/p_3792ze1u50.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://l.top4top.io/p_37924biy40.png"
+        ]
+
+    ]
+}
+
+];
+
+
+/* =====================================================
+   وظائف الموقع
+===================================================== */
+
+const $ = id => document.getElementById(id);
+
+let currentLeague = null;
+
+
+/* إظهار صفحة */
+
+function showPage(id){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p => p.classList.remove("active")
+        );
+
+    $(id).classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* تغيير زر الشريط السفلي */
+
+function setNav(id){
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(
+            b =>
+            b.classList.toggle(
+                "active",
+                b.dataset.page === id
+            )
+        );
+}
+
+
+/* الصفحة الرئيسية */
+
+function goHome(){
+
+    showPage("home");
+
+    setNav("home");
+
+}
+
+
+/* الرجوع للدوري */
+
+function backToLeague(){
+
+    showPage("leaguePage");
+
+    setNav("");
+
+}
+
+
+/* إنشاء كارت الدوري */
+
+function leagueCard(league){
+
+    return `
+
+    <button
+        class="card league-card"
+        onclick="openLeague('${league.id}')">
+
+        <span class="league-icon">
+            ${league.icon}
+        </span>
+
+        <strong>
+            ${league.name}
+        </strong>
+
+        <span class="small">
+
+            ${
+                league.empty
+                ?
+                "لسة مفيش حاجة نزلت"
+                :
+                league.teams.length + " فريق"
+            }
+
+        </span>
+
+    </button>
+
+    `;
+}
+
+
+/* عرض الدوريات */
+
+function renderLeagues(){
+
+    $("leagueList").innerHTML =
+        leagues.map(leagueCard).join("");
+
+}
+
+
+/* فتح الدوري */
+
+function openLeague(id){
+
+    const league =
+        leagues.find(
+            x => x.id === id
+        );
+
+    if(!league) return;
+
+    currentLeague = league;
+
+
+    $("leagueTitle").innerHTML = `
+
+        <h1>
+            ${league.icon}
+            ${league.name}
+        </h1>
+
+        <p>
+
+            ${
+                league.empty
+                ?
+                "لم يتم تنزيل الأطقم لهذا الدوري بعد."
+                :
+                "اختار الفريق لعرض الأطقم."
+            }
+
+        </p>
+
+    `;
+
+
+    $("teamList").innerHTML =
+
+        league.empty
+
+        ?
+
+        `
+
+        <div
+            class="empty"
+            style="grid-column:1/-1">
+
+            لم يتم التنزيل بعد
+
+        </div>
+
+        `
+
+        :
+
+        league.teams.map(
+
+            (team,i) => `
+
+            <button
+                class="card team-card"
+                onclick="openTeam(${i})">
+
+                ${
+                    team.logo
+                    ?
+                    `<img
+                        src="${team.logo}"
+                        alt="">`
+                    :
+                    ""
+                }
+
+                <div>
+
+                    <strong>
+                        ${team.name}
+                    </strong>
+
+                    <div class="small">
+                        عرض الأطقم
+                    </div>
+
+                </div>
+
+            </button>
+
+            `
+
+        ).join("");
+
+
+    showPage("leaguePage");
+
+    setNav("");
+
+}
+
+
+/* فتح الفريق */
+
+function openTeam(index){
+
+    const team =
+        currentLeague.teams[index];
+
+
+    $("teamKits").innerHTML = `
+
+        <div class="team-box">
+
+            <div class="team-head">
+
+                ${
+                    team.logo
+                    ?
+                    `<img
+                        src="${team.logo}"
+                        alt="${team.name}">`
+                    :
+                    ""
+                }
+
+                <div>
+
+                    <h3>
+                        ${team.name}
+                    </h3>
+
+                    <span class="small">
+                        اضغط "نسخ اللينك"
+                        لنسخ رابط الصورة
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="kits">
+
+                ${
+                    team.logo
+                    ?
+                    kitHTML(
+                        "اللوجو",
+                        team.logo
+                    )
+                    :
+                    ""
+                }
+
+                ${
+                    team.kits
+                    .map(
+                        k =>
+                        kitHTML(
+                            k[0],
+                            k[1]
+                        )
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    showPage("teamPage");
+
+}
+
+
+/* إنشاء كارت الطقم */
+
+function kitHTML(name,url){
+
+    return `
+
+        <div class="kit">
+
+            <img
+                src="${url}"
+                alt="${name}"
+                loading="lazy">
+
+            <div class="kit-name">
+                ${name}
+            </div>
+
+            <button
+                class="copy"
+                onclick="copyLink(
+                    this,
+                    '${escapeAttr(url)}'
+                )">
+
+                نسخ اللينك
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* حماية الرابط */
+
+function escapeAttr(str){
+
+    return str
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+
+}
+
+
+/* نسخ الرابط */
+
+async function copyLink(btn,url){
+
+    try{
+
+        await navigator.clipboard
+            .writeText(url);
+
+    }
+
+    catch(e){
+
+        const ta =
+            document.createElement("textarea");
+
+        ta.value = url;
+
+        document.body.appendChild(ta);
+
+        ta.select();
+
+        document.execCommand("copy");
+
+        ta.remove();
+
+    }
+
+
+    const old =
+        btn.textContent;
+
+
+    btn.textContent =
+        "اشطة ✓";
+
+
+    btn.classList.add(
+        "copied"
+    );
+
+
+    setTimeout(
+
+        () => {
+
+            btn.textContent =
+                old;
+
+            btn.classList.remove(
+                "copied"
+            );
+
+        },
+
+        1200
+
+    );
+
+}
+
+
+/* عرض المنتخبات */
+
+function renderCountries(filter=""){
+
+    const q =
+        filter
+        .trim()
+        .toLowerCase();
+
+
+    const list =
+        countries.filter(
+
+            c =>
+
+            (
+                c.name +
+                " " +
+                c.flag
+            )
+            .toLowerCase()
+            .includes(q)
+
+        );
+
+
+    $("countryList").innerHTML =
+
+        list.length
+
+        ?
+
+        list.map(
+
+            (c,i) => `
+
+            <button
+                class="card league-card"
+                onclick="openCountry(
+                    ${countries.indexOf(c)}
+                )">
+
+                <span class="league-icon">
+                    ${c.flag}
+                </span>
+
+                <strong>
+                    ${c.name}
+                </strong>
+
+                <span class="small">
+                    عرض الطقم
+                </span>
+
+            </button>
+
+            `
+
+        ).join("")
+
+        :
+
+        `
+
+        <div
+            class="empty"
+            style="grid-column:1/-1">
+
+            مفيش حاجة بالأسم ده..جرب بالأنجليزي .
+
+        </div>
+
+        `;
+
+}
+
+
+/* فتح المنتخب */
+
+function openCountry(index){
+
+    const c =
+        countries[index];
+
+
+    $("countryKits").innerHTML = `
+
+        <div class="team-box">
+
+            <div class="team-head">
+
+                ${
+                    c.logo
+                    ?
+
+                    `<img
+                        src="${c.logo}"
+                        alt="">`
+
+                    :
+
+                    `<div
+                        style="font-size:45px">
+
+                        ${c.flag}
+
+                    </div>`
+
+                }
+
+
+                <div>
+
+                    <h3>
+
+                        ${c.flag}
+                        ${c.name}
+
+                    </h3>
+
+                    <span class="small">
+                        المنتخب
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="kits">
+
+                ${
+                    c.logo
+                    ?
+                    kitHTML(
+                        "اللوجو",
+                        c.logo
+                    )
+                    :
+                    ""
+                }
+
+                ${
+                    c.kits
+                    .map(
+                        k =>
+                        kitHTML(
+                            k[0],
+                            k[1]
+                        )
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* أزرار الشريط السفلي */
+
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+
+        btn.addEventListener(
+            "click",
+            () => {
+
+                const page =
+                    btn.dataset.page;
+
+
+                if(page === "home"){
+
+                    goHome();
+
+                }
+
+
+                else if(page === "countries"){
+
+                    showPage(
+                        "countries"
+                    );
+
+                    setNav(
+                        "countries"
+                    );
+
+                    renderCountries(
+                        $("search").value
+                    );
+
+                }
+
+
+                else if(page === "about"){
+
+                    showPage(
+                        "about"
+                    );
+
+                    setNav(
+                        "about"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* البحث */
+
+$("search")
+.addEventListener(
+    "input",
+    function(){
+
+        const q =
+            this.value
+            .trim()
+            .toLowerCase();
+
+
+        if(
+            $("countries")
+            .classList
+            .contains("active")
+        ){
+
+            renderCountries(q);
+
+            return;
+
+        }
+
+
+        if(!q){
+
+            renderLeagues();
+
+            return;
+
+        }
+
+
+        const leagueMatches =
+            leagues.filter(
+
+                l =>
+
+                l.name
+                .toLowerCase()
+                .includes(q)
+
+                ||
+
+                l.teams.some(
+
+                    t =>
+
+                    t.name
+                    .toLowerCase()
+                    .includes(q)
+
+                )
+
+            );
+
+
+        $("leagueList").innerHTML =
+
+            leagueMatches.length
+
+            ?
+
+            leagueMatches
+                .map(leagueCard)
+                .join("")
+
+            :
+
+            `
+
+            <div
+                class="empty"
+                style="grid-column:1/-1">
+
+                 مفيش حاجة بالاسم ده جرب بالانجليزي.
+
+            </div>
+
+            `;
+
+    }
+);
+
+
+/* تشغيل الموقع */
+
+renderLeagues();
+
+renderCountries();
+
+</script>
+
+</body>
+</html>
