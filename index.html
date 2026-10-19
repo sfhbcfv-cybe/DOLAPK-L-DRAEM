@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دولابك لدريم</title>
 
+    <link rel="icon" type="image/png" href="رابط-الصورة.png">
+
 <style>
 *{
     box-sizing:border-box;
@@ -390,6 +392,85 @@ main{
     margin-top:10px;
 }
 
+
+/* ===== عارض الصور في الصفحة الرئيسية - إضافة فقط ===== */
+.home-sliders{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+    margin:18px 0 24px;
+}
+
+.home-slider{
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:rgba(10,10,10,.46);
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+    touch-action:pan-y;
+    user-select:none;
+    -webkit-user-select:none;
+    cursor:pointer;
+}
+
+.home-slider-track{
+    display:flex;
+    width:100%;
+    transition:transform .62s cubic-bezier(.22,.75,.25,1);
+    direction:ltr;
+}
+
+.home-slide{
+    flex:0 0 100%;
+    width:100%;
+    aspect-ratio:4/3;
+    display:block;
+    overflow:hidden;
+}
+
+.home-slide img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    background:rgba(255,255,255,.025);
+    pointer-events:none;
+    transition:transform .7s cubic-bezier(.22,.75,.25,1), filter .7s ease;
+}
+
+.home-slider-dots{
+    position:absolute;
+    bottom:9px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    direction:ltr;
+    z-index:2;
+}
+
+.home-slider-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    transition:.25s;
+}
+
+.home-slider-dot.active{
+    width:20px;
+    border-radius:8px;
+    background:linear-gradient(90deg,var(--yellow),var(--red));
+}
+
+@media(max-width:600px){
+    .home-sliders{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+}
+
 @media(max-width:600px){
 
     .brand{
@@ -410,23 +491,361 @@ main{
         grid-template-columns:repeat(2,1fr);
     }
 }
+
+/* ===== زر الرجوع للأعلى مع مؤشر تقدم التمرير - إضافة فقط ===== */
+#backToTop{
+    position:fixed;
+    left:16px;
+    bottom:92px;
+    z-index:55;
+    width:54px;
+    height:54px;
+    border:0;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px) scale(.94);
+    transition:opacity .3s ease, transform .3s ease, visibility .3s ease;
+    background:conic-gradient(from -90deg, var(--yellow) 0%, var(--red) 0%, rgba(255,255,255,.16) 0%);
+    box-shadow:0 6px 22px rgba(0,0,0,.35);
+    -webkit-tap-highlight-color:transparent;
+}
+#backToTop.visible{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+}
+#backToTop::before{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:50%;
+    background:linear-gradient(145deg, #17130d, #090909);
+    border:1px solid rgba(255,255,255,.08);
+}
+#backToTop svg{
+    position:relative;
+    z-index:1;
+    width:23px;
+    height:23px;
+    fill:none;
+    stroke:#fff;
+    stroke-width:2.5;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    transition:transform .25s ease;
+}
+#backToTop:hover svg{ transform:translateY(-3px); }
+#backToTop:active{ transform:scale(.94); }
+@media(max-width:600px){
+    #backToTop{ left:13px; bottom:88px; width:50px; height:50px; }
+}
+@media(prefers-reduced-motion:reduce){
+    #backToTop, #backToTop svg{ transition:none; }
+}
+
+
+/* ===== مظهر مستوحى من الصورة المرجعية + الوضع الداكن ===== */
+:root{
+ --bg:#d8d8d8; --glass:rgba(255,255,255,.72); --border:rgba(255,255,255,.78);
+ --text:#202124; --muted:#666; --surface:#f7f7f7; --shadow:0 4px 8px rgba(0,0,0,.16);
+}
+body{
+ background:linear-gradient(135deg,#dedede,#d2d2d2 55%,#e3e3e3);
+ color:var(--text); transition:background .25s ease,color .25s ease;
+}
+.header{
+ background:rgba(255,255,255,.88); border-bottom:1px solid rgba(0,0,0,.12);
+ backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+}
+.brand{color:#222; background:none; -webkit-text-fill-color:currentColor; margin-bottom:10px}
+.search{background:rgba(245,245,245,.96); color:#222;border-color:#d0d0d0;border-radius:24px}
+.search::placeholder{color:#777}
+.hero,.team-box,.about-box,.home-slider{
+ background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.9);
+ box-shadow:var(--shadow);color:var(--text)
+}
+.hero p,.team-card .small,.small-note,.empty,.kit-name{color:var(--muted)}
+.section-title{color:#252525}
+.card{
+ background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(235,235,235,.82));
+ border:1px solid rgba(255,255,255,.95);color:#252525;
+ box-shadow:0 3px 7px rgba(0,0,0,.17);
+}
+.card:hover{border-color:rgba(229,57,53,.5)}
+.back{background:#f4f4f4;color:#222;border-color:#ccc}
+.team-head h3{color:var(--text)}
+.kit{background:rgba(255,255,255,.65);border-color:#d5d5d5}
+.kit img{background:rgba(240,240,240,.7)}
+.link-btn{color:#222;background:linear-gradient(90deg,rgba(255,208,0,.22),rgba(229,57,53,.15))}
+.bottom{
+ max-width:100%;left:10px;right:10px;bottom:10px;
+ grid-template-columns:repeat(3,minmax(0,1fr));padding:8px 12px;gap:8px;
+ background:rgba(245,245,245,.78);border:1px solid rgba(255,255,255,.9);
+ border-radius:32px;box-shadow:0 5px 18px rgba(0,0,0,.18);
+ backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+}
+.nav-btn{color:#444;border-radius:24px;transition:background .25s,color .25s}
+.nav-btn.active{background:rgba(255,208,0,.22);color:#111}
+.nav-icon{font-size:22px}
+#backToTop::before{background:linear-gradient(145deg,#f7f7f7,#dcdcdc);border-color:rgba(0,0,0,.08)}
+#themeToggle{
+ position:absolute;left:14px;top:14px;width:40px;height:40px;border-radius:50%;
+ border:1px solid #d4d4d4;background:#f3f3f3;color:#222;font-size:20px;cursor:pointer;
+ box-shadow:0 2px 6px rgba(0,0,0,.12)
+}
+.header{position:sticky}
+.header .brand{padding:0 48px}
+body.dark-mode{
+ --bg:#090909;--glass:rgba(22,22,22,.82);--border:rgba(255,255,255,.13);
+ --text:#fff;--muted:#c2c2c2;--surface:#171717;
+ background:radial-gradient(circle at 15% 5%,rgba(255,208,0,.12),transparent 28%),radial-gradient(circle at 90% 20%,rgba(229,57,53,.14),transparent 30%),linear-gradient(135deg,#080808,#17100b 50%,#090909);
+ color:#fff;
+}
+body.dark-mode .header{background:rgba(5,5,5,.78);border-bottom-color:var(--border)}
+body.dark-mode .brand{color:#fff;background:linear-gradient(90deg,#fff3a1,var(--yellow),var(--red));-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text}
+body.dark-mode .search{background:rgba(255,255,255,.07);color:#fff;border-color:var(--border)}
+body.dark-mode .search::placeholder{color:#ddd}
+body.dark-mode .hero,body.dark-mode .team-box,body.dark-mode .about-box,body.dark-mode .home-slider{background:rgba(15,15,15,.72);border-color:var(--border);color:#fff}
+body.dark-mode .section-title,body.dark-mode .team-head h3{color:#fff}
+body.dark-mode .card{background:rgba(20,20,20,.82);border-color:var(--border);color:#fff}
+body.dark-mode .back{background:rgba(255,255,255,.07);color:#fff;border-color:var(--border)}
+body.dark-mode .kit{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.1)}
+body.dark-mode .kit img{background:rgba(255,255,255,.025)}
+body.dark-mode .link-btn{color:#fff}
+body.dark-mode .bottom{background:rgba(15,15,15,.78);border-color:var(--border)}
+body.dark-mode .nav-btn{color:#ddd}
+body.dark-mode .nav-btn.active{background:linear-gradient(135deg,rgba(255,208,0,.22),rgba(229,57,53,.22));color:#fff}
+body.dark-mode #themeToggle{background:#222;color:#ffd000;border-color:#444}
+body.dark-mode #backToTop::before{background:linear-gradient(145deg,#17130d,#090909);border-color:rgba(255,255,255,.08)}
+@media(min-width:700px){
+ .leagues,.teams,.countries{grid-template-columns:repeat(4,minmax(0,1fr));}
+ .team-card{min-height:76px}
+}
+@media(max-width:600px){.header .brand{padding:0 42px}#themeToggle{top:12px;left:10px;width:36px;height:36px}}
+
+
+/* ===== تحسين الزجاج الضبابي وتوزيع أزرار الأسفل ===== */
+.header{
+  background:rgba(245,245,245,.38);
+  border-bottom:1px solid rgba(255,255,255,.32);
+  backdrop-filter:blur(24px) saturate(155%);
+  -webkit-backdrop-filter:blur(24px) saturate(155%);
+}
+body.dark-mode .header{
+  background:rgba(12,12,12,.42);
+  border-bottom-color:rgba(255,255,255,.12);
+}
+.hero,.team-box,.about-box,.home-slider,.card,.kit,.back,.link-btn{
+  backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+.bottom{
+  left:74px; right:74px; width:auto;
+  max-width:800px;
+  background:rgba(250,250,250,.48);
+  border:1px solid rgba(255,255,255,.72);
+  backdrop-filter:blur(26px) saturate(165%);
+  -webkit-backdrop-filter:blur(26px) saturate(165%);
+}
+body.dark-mode .bottom{
+  background:rgba(20,20,20,.54);
+  border-color:rgba(255,255,255,.16);
+}
+.floating-search{
+  position:fixed;right:12px;bottom:10px;z-index:70;
+  display:flex;align-items:center;gap:8px;
+}
+#searchToggle{
+  width:58px;height:58px;border-radius:50%;
+  display:grid;place-items:center;flex:0 0 58px;
+  border:1px solid rgba(255,255,255,.8);
+  color:var(--text);background:rgba(250,250,250,.62);
+  box-shadow:0 5px 18px rgba(0,0,0,.2);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  cursor:pointer;transition:transform .38s cubic-bezier(.22,1,.36,1),background .38s ease,box-shadow .38s ease;
+}
+#searchToggle:active{transform:scale(.94)}
+#searchToggle svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+body.dark-mode #searchToggle{background:rgba(20,20,20,.72);border-color:rgba(255,255,255,.18);color:#fff}
+.search-popover{
+  display:none;width:min(62vw,320px);height:48px;padding:0 16px;
+  border-radius:25px;border:1px solid rgba(255,255,255,.75);
+  background:rgba(250,250,250,.68);color:#222;outline:none;
+  box-shadow:0 5px 18px rgba(0,0,0,.16);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+}
+.floating-search.open .search-popover{display:block;animation:fade .2s ease}
+body.dark-mode .search-popover{background:rgba(20,20,20,.78);color:#fff;border-color:rgba(255,255,255,.16)}
+#backToTop{bottom:10px;left:12px;z-index:70;width:58px;height:58px}
+@media(max-width:600px){
+ .bottom{left:76px;right:76px;bottom:10px;padding:6px 7px;gap:3px;border-radius:30px}
+ .nav-btn{padding:8px 2px;font-size:12px}
+ .nav-icon{font-size:20px}
+ .floating-search{right:10px;bottom:10px}
+ #searchToggle{width:54px;height:54px;flex-basis:54px}
+ #backToTop{left:10px;bottom:10px;width:54px;height:54px}
+ .search-popover{width:min(54vw,250px);height:44px}
+}
+
+
+/* ===== حركة عارض الصور: انتقال ناعم وسهل التعديل ===== */
+.home-slider{isolation:isolate;transition:box-shadow .35s ease,border-color .35s ease,transform .35s ease}
+.home-slider:hover{border-color:rgba(255,208,0,.38);box-shadow:0 16px 38px rgba(0,0,0,.22)}
+.home-slider:active{transform:scale(.995)}
+.home-slide img{will-change:transform}
+.home-slider:hover .home-slide img{filter:saturate(1.04)}
+@media(prefers-reduced-motion:reduce){
+ .home-slider-track,.home-slide img,.home-slider,.home-slider-dot{transition:none!important}
+}
+
+
+/* ===== البحث يتمدد مكان الشريط السفلي بحركة ناعمة ===== */
+.bottom{
+  transition:transform .78s cubic-bezier(.22,1,.36,1),opacity .62s ease,filter .62s ease;
+  transform:translateY(0);
+  opacity:1;
+}
+body.search-mode .bottom{
+  transform:translateY(125%);
+  opacity:0;
+  pointer-events:none;
+}
+.floating-search{
+  transition:left .42s cubic-bezier(.22,.75,.25,1),right .42s cubic-bezier(.22,.75,.25,1),bottom .42s cubic-bezier(.22,.75,.25,1),transform .42s cubic-bezier(.22,.75,.25,1);
+}
+.search-popover{
+  width:0;
+  min-width:0;
+  flex:0 1 0;
+  padding-left:0;
+  padding-right:0;
+  opacity:0;
+  border-width:0;
+  transition:flex .78s cubic-bezier(.22,1,.36,1),opacity .48s ease,padding .78s cubic-bezier(.22,1,.36,1),border-width .48s ease;
+}
+.floating-search.open{
+  left:50%;
+  right:auto;
+  width:min(520px, calc(100vw - 32px));
+  bottom:10px;
+  transform:translateX(-50%);
+  direction:ltr;
+}
+.floating-search.open .search-popover{
+  display:block;
+  flex:1 1 auto;
+  width:auto;
+  min-width:0;
+  opacity:1;
+  padding:0 16px;
+  border-width:1px;
+  animation:searchBloom .42s cubic-bezier(.22,.75,.25,1) both;
+}
+.floating-search.open #searchToggle{
+  flex:0 0 58px;
+}
+@keyframes searchBloom{
+  from{transform:translateX(12px) scale(.97);filter:blur(3px)}
+  to{transform:translateX(0) scale(1);filter:blur(0)}
+}
+.floating-search.open .search-popover{
+  background:rgba(250,250,250,.46);
+  border-color:rgba(255,255,255,.78);
+  box-shadow:0 8px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.42);
+  backdrop-filter:blur(30px) saturate(175%);
+  -webkit-backdrop-filter:blur(30px) saturate(175%);
+}
+body.dark-mode .floating-search.open .search-popover{
+  background:rgba(20,20,20,.58);
+  border-color:rgba(255,255,255,.2);
+  color:#fff;
+}
+@media(max-width:600px){
+  .floating-search.open{left:auto;right:10px;width:auto;bottom:10px;transform:none}
+  .floating-search.open #searchToggle{flex-basis:54px}
+  .floating-search.open .search-popover{height:44px}
+}
+/* تثبيت زر البحث في مكانه مع توسيط حقل البحث بشكل مستقل */
+.floating-search.open{
+  left:auto;
+  right:12px;
+  width:auto;
+  transform:none;
+}
+.floating-search.open #searchToggle{
+  position:relative;
+  z-index:2;
+}
+.floating-search.open .search-popover{
+  position:fixed;
+  left:50%;
+  right:auto;
+  bottom:15px;
+  width:min(460px,calc(100vw - 104px));
+  height:58px;
+  flex:none;
+  transform:translateX(-50%);
+  animation:centeredSearchBloom .78s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes centeredSearchBloom{
+  from{opacity:0;filter:blur(9px);scale:.94}
+  65%{opacity:.82;filter:blur(2px);scale:1.008}
+  to{opacity:1;filter:blur(0);scale:1}
+}
+@media(max-width:600px){
+  .floating-search.open{right:10px}
+  .floating-search.open .search-popover{
+    bottom:15px;
+    width:calc(100vw - 92px);
+    height:54px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .bottom,.floating-search,.search-popover,.floating-search.open .search-popover{transition:none!important;animation:none!important}
+}
+
+
+/* اختيار نطاق البحث: الرئيسية أو المنتخبات */
+.search-scope-tabs{
+  display:none;position:fixed;left:50%;bottom:84px;transform:translateX(-50%);
+  z-index:91;direction:rtl;gap:7px;padding:6px;border-radius:24px;
+  background:rgba(250,250,250,.48);border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 8px 26px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.45);
+  backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);
+  animation:searchBloom .5s cubic-bezier(.22,1,.36,1) both;
+}
+.floating-search.open .search-scope-tabs{display:flex}
+.search-scope-btn{border:1px solid transparent;border-radius:19px;padding:9px 17px;
+  color:var(--text);background:transparent;font:inherit;font-size:14px;white-space:nowrap;
+  cursor:pointer;transition:background .25s ease,color .25s ease,transform .25s ease,border-color .25s ease}
+.search-scope-btn:active{transform:scale(.96)}
+.search-scope-btn.active{background:rgba(255,255,255,.68);border-color:rgba(255,255,255,.7);
+  box-shadow:0 3px 12px rgba(0,0,0,.1);font-weight:700}
+body.dark-mode .search-scope-tabs{background:rgba(20,20,20,.65);border-color:rgba(255,255,255,.17)}
+body.dark-mode .search-scope-btn{color:#fff}
+body.dark-mode .search-scope-btn.active{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2)}
+@media(max-width:600px){
+  .search-scope-tabs{bottom:80px;gap:5px;padding:5px}
+  .search-scope-btn{padding:8px 15px;font-size:13px}
+}
+
 </style>
 </head>
 
 <body>
 
 <header class="header">
+    <button id="themeToggle" type="button" aria-label="تبديل المظهر" title="تبديل المظهر">☾</button>
 
     <div class="brand">
         دولابك لدريم
     </div>
-
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="دور على فريقك أو منتخب أو دوري..."
-    >
 
 </header>
 
@@ -439,13 +858,66 @@ main{
     <div class="hero">
 
         <h1>
-          🚧⚠️ تحزير هام سيتم تحديث شكل الموقع باكامل يوم تنزيل تيشرت  ارسنال الموافق الاثننين تابع تحديثات الموقع من قناة التلجرام في صفحة من نحن 🚧⚠️
+       ⚽ دولابك لدريم ⚽ 
+            
         </h1>
 
         <p>
             كل أطقم الأندية والمنتخبات في مكان واحد،
             مع إمكانية نسخ رابط كل صورة بضغطة واحدة.
         </p>
+
+    </div>
+
+    <!-- عارض صور الدوريات والمنتخبات - إضافة فقط -->
+    <div class="home-sliders">
+
+ <!-- المربع الأول: الدوريات -->
+        <div class="home-slider" id="leaguesSlider" aria-label="عارض صور الدوريات">
+            <div class="home-slider-track">
+
+                <div class="home-slide" data-target-type="team" data-league-id="egyptian" data-team-name="Al Ahlay">
+                    <img src="https://up6.cc/2026/10/179224504072471.png" alt="Al Ahlay">
+                </div>
+                
+                  <div class="home-slide" data-target-type="team" data-league-id="italian" data-team-name="ROMA">
+                    <img src="https://up6.cc/2026/10/179224504095322.png" alt="ROMA">
+                </div>
+
+                <div class="home-slide" data-target-type="team" data-league-id="Saudi Arabia" data-team-name="AL Nassr">
+                    <img src="https://up6.cc/2026/10/179224504107743.png" alt="AL Nassr">
+                </div>
+                
+                <div class="home-slide" data-target-type="team" data-league-id="stars" data-team-name="man united 2008">
+                    <img src="https://up6.cc/2026/10/179224504120394.png"="man united 2008">
+                </div>
+
+            </div>
+
+            <div class="home-slider-dots"></div>
+        </div>
+
+        <!-- المربع الثاني: المنتخبات -->
+        <div class="home-slider" id="countriesSlider" aria-label="عارض صور المنتخبات">
+            <div class="home-slider-track">
+                
+              
+                <div class="home-slide" data-target-type="country" data-target-name="Argentina">
+                    <img src="https://up6.cc/2026/10/179224513944051.png" alt="Argentina">
+                </div>
+                
+                <div class="home-slide" data-target-type="country" data-target-name="Portugal">
+                    <img src="https://up6.cc/2026/10/179224513959282.png" alt="Portugal">
+                </div>
+                
+                <div class="home-slide" data-target-type="country" data-target-name="Franca">
+                    <img src="https://up6.cc/2026/10/179224513972883.png" alt="Franca">
+                </div>
+
+            </div>
+
+            <div class="home-slider-dots"></div>
+        </div>
 
     </div>
 
@@ -468,7 +940,7 @@ main{
     <button
         class="back"
         onclick="goHome()">
-        ← رجوع للدوريات
+        ← رجوع للدوري
     </button>
 
     <div
@@ -490,7 +962,7 @@ main{
     <button
         class="back"
         onclick="backToLeague()">
-        ← رجوع
+        ←  رجوع
     </button>
 
     <div id="teamKits">
@@ -631,6 +1103,24 @@ main{
 
 </nav>
 
+<!-- زر البحث العائم بجانب الشريط السفلي -->
+<div class="floating-search">
+    <div class="search-scope-tabs" id="searchScopeTabs" aria-label="نطاق البحث">
+        <button type="button" class="search-scope-btn active" data-search-scope="home">⌂ الـدوريـات</button>
+        <button type="button" class="search-scope-btn" data-search-scope="countries">🌍 الـمنتـخبات </button>
+    </div>
+    <input id="search" class="search-popover" type="search" placeholder="ابحث عن فريق أو منتخب أو دوري..." aria-label="البحث">
+    <button id="searchToggle" type="button" aria-label="فتح البحث" title="بحث">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+    </button>
+</div>
+
+<!-- زر الرجوع للأعلى ومؤشر تقدم التمرير - إضافة فقط -->
+<button id="backToTop" type="button" aria-label="الرجوع إلى أعلى الصفحة" title="الرجوع للأعلى">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 19V5M6 11l6-6 6 6"/>
+    </svg>
+</button>
 
 <script>
 
@@ -668,17 +1158,20 @@ const leagues = [
         },
 
         {
-            name:"( ارسنال ) سيتم  تنزيلها يوم الاثنين 19/10/2026 الساعة 8:00 ترقبو التحديثات في قناة التلجرام في صفحة من نحن",
+            name:"Arsenal",
             logo:
-            "",
+            "https://up6.cc/2026/10/179233846694811.png",
             kits:[
-
-                
-           ] 
+                ["الأساسي","https://up6.cc/2026/10/179230801812971.png"],
+                ["الاحتياطي","https://up6.cc/2026/10/179233935814971.png"],
+                ["الثالث","https://up6.cc/2026/10/179233615739291.png"],
+                ["الحارس 1","https://up6.cc/2026/10/179233831196391.png"],
+                ["الحارس 2","https://up6.cc/2026/10/179233831199652.png"],
+                ["الحارس 3","https://up6.cc/2026/10/179233831203333.png"]
+            ]
         },
-
-
-         {      
+        
+        {
             name:"Man City",
             logo:
             "https://up6.cc/2026/08/178804323619851.png",
@@ -696,48 +1189,19 @@ const leagues = [
 
         {
             name:"Man United",
-
             logo:
             "https://up6.cc/2026/08/178811994776821.png",
-
             kits:[
-
-                [
-                    "الأساسي",
-                    "https://up6.cc/2026/08/178811203650731.png"
-                ],
-
-                [
-                    "الاحتياطي",
-                    "https://up6.cc/2026/08/178816392680184.png"
-                ],
-
-                [
-                    "الثالث",
-                    "https://up6.cc/2026/08/178816382016091.png"
-                ],
-
-                [
-                    "الحارس 1",
-                    "https://up6.cc/2026/08/178811897750491.png"
-                ],
-
-                [
-                    "الحارس 2",
-                    "https://up6.cc/2026/08/178811897752912.png"
-                ],
-
-                [
-                    "الحارس 3",
-                    "https://up6.cc/2026/08/178811897754913.png"
-                ]
-
-            ]
+                ["الأساسي","https://up6.cc/2026/08/178811203650731.png"],
+                ["الاحتياطي","https://up6.cc/2026/08/178816392680184.png"],
+                ["الثالث","https://up6.cc/2026/08/178816382016091.png"],
+                ["الحارس 1","https://up6.cc/2026/08/178811897750491.png"],
+                ["الحارس 2","https://up6.cc/2026/08/178811897752912.png"],
+                ["الحارس 3","https://up6.cc/2026/08/178811897754913.png"]
+         ]
         }
-
     ]
 },
-
 
 /* =========================
    الدوري الإسباني
@@ -745,50 +1209,21 @@ const leagues = [
 
 {
     id:"spanish",
-
     name:"الدوري الإسباني",
-
     icon:"🇪🇸",
-
     teams:[
 
         {
             name:"Real Madrid",
-
             logo:
             "https://up6.cc/2026/08/178738221288634.png",
-
             kits:[
-
-                [
-                    "الأساسي",
-                    "https://up6.cc/2026/08/178739617485991.png"
-                ],
-
-                [
-                    "الاحتياطي",
-                    "https://up6.cc/2026/08/178746740912734.png"
-                ],
-
-                [
-                    "الثالث",
-                    "https://up6.cc/2026/08/1787396174933.png"
-                ],
-
-                [
-                    "الحارس 1",
-                    "https://up6.cc/2026/08/178739617495474.png"
-                ],
-
-                [
-                    "الحارس 2",
-                    "https://up6.cc/2026/08/178739629029491.png"
-                ],
-
-                [
-                    "الحارس 3",
-                    "https://up6.cc/2026/08/178739629032182.png"
-                ]
+                ["الأساسي","https://up6.cc/2026/08/178739617485991.png"],
+                ["الاحتياطي","https://up6.cc/2026/08/178746740912734.png"],
+                ["الثالث","https://up6.cc/2026/08/1787396174933.png"],
+                ["الحارس 1","https://up6.cc/2026/08/178739617495474.png"],
+                ["الحارس 2","https://up6.cc/2026/08/178739629029491.png"],
+                ["الحارس 3","https://up6.cc/2026/08/178739629032182.png"]
 
             ]
         },
@@ -801,36 +1236,12 @@ const leagues = [
             "https://up6.cc/2026/08/17877306242481.png",
 
             kits:[
-
-                [
-                    "الأساسي",
-                    "https://up6.cc/2026/08/178764659418543.png"
-                ],
-
-                [
-                    "الاحتياطي",
-                    "https://up6.cc/2026/08/178769685717291.png"
-                ],
-
-                [
-                    "الثالث",
-                    "https://up6.cc/2026/08/178771859760424.png"
-                ],
-
-                [
-                    "الحارس الأساسي",
-                    "https://up6.cc/2026/08/178772356423231.png"
-                ],
-
-                [
-                    "الحارس الاحتياطي",
-                    "https://up6.cc/2026/08/178773052311381.png"
-                ],
-
-                [
-                    "الحارس الثالث",
-                    "https://up6.cc/2026/08/17877235642672.png"
-                ]
+                ["الأساسي","https://up6.cc/2026/08/178764659418543.png"],
+                ["الاحتياطي","https://up6.cc/2026/08/178769685717291.png"],
+                ["الثالث","https://up6.cc/2026/08/178771859760424.png"],
+                ["الحارس الأساسي","https://up6.cc/2026/08/178772356423231.png"],
+                ["الحارس الاحتياطي","https://up6.cc/2026/08/178773052311381.png"],
+                ["الحارس الثالث","https://up6.cc/2026/08/17877235642672.png"]
 
             ]
         }
@@ -845,46 +1256,20 @@ const leagues = [
 
 {
     id:"french",
-
     name:"الدوري الفرنسي",
-
     icon:"🇫🇷",
-
     teams:[
 
         {
             name:" PSG",
-
             logo:
             "https://up6.cc/2026/09/178928500183921.png",
-
             kits:[
-
-                [
-                    "الأساسي",
-                    "https://up6.cc/2026/09/178928500186912.png"
-                ],
-
-                [
-                    "الاحتياطي",
-                    "https://up6.cc/2026/09/178928500189463.png"
-                ],
-
-                [
-                    "الحارس 1",
-                    "https://up6.cc/2026/09/178928500192394.png"
-                ],
-
-                [
-                    "الحارس 2",
-                    "https://up6.cc/2026/09/178928508623451.png"
-                ],
-
-                [
-                    "الحارس 3",
-                    "https://up6.cc/2026/09/178928508625372.png"
-                ]
-
+                ["الأساسي","https://up6.cc/2026/09/178928500186912.png"],
+                ["الاحتياطي","https://up6.cc/2026/09/178928500189463.png"],
+                ["الحارس 1","https://up6.cc/2026/09/178928500192394.png"],
+                ["الحارس 2","https://up6.cc/2026/09/178928508623451.png"],
+                ["الحارس 3","https://up6.cc/2026/09/178928508625372.png"]
             ]
         }
 
@@ -1015,15 +1400,11 @@ const leagues = [
 
 {
     id:"egyptian",
-
     name:"الدوري المصري",
-
     icon:"🇪🇬",
-
     teams:[
-
         {
-            name:"Al Ahly",
+            name:"Al Ahlay",
             logo:
             "https://j.top4top.io/p_3870wdl2d8.png",
             kits:[
@@ -1034,23 +1415,21 @@ const leagues = [
                 ["الحارس 1","https://up6.cc/2026/08/178737291469651.png"],
                 ["الحارس 2","https://up6.cc/2026/08/178737291471832.png"],
                 ["الحارس 3","https://up6.cc/2026/08/178737291474293.png"]
-                
-
+               
             ]
         },
         
+        
         {
             name:"Zamalk SC",
-            
             logo:
             "https://up6.cc/2026/10/179127597896381.png",
-            
             kits:[
-                ["الاساسي","https://up6.cc/2026/10/179122403272781.png"],
+                ["الأساسي","https://up6.cc/2026/10/179122403272781.png"],
                 ["الاحتياطي","https://up6.cc/2026/10/179127456216571.png"],
-                ["الحارس 1","https://up6.cc/2026/10/179127581802171.png"],
-                ["الحارس 2","https://up6.cc/2026/10/179127581804522.png"],
-                ["الحارس 3","https://up6.cc/2026/10/179127581807534.png"]
+                ["الحارس الأساسي","https://up6.cc/2026/10/179127581802171.png"],
+                ["الحارس الاحتياطي","https://up6.cc/2026/10/179127581804522.png"],
+                ["الحارس الثالث","https://up6.cc/2026/10/179127581807534.png"]
             ]
         }
 
@@ -1074,18 +1453,19 @@ const leagues = [
 
         {
             name:"AL Nassr",
-                
+
             logo:
             "https://up6.cc/2026/10/179156116463571.png",
 
             kits:[
-                ["االاساسي","https://up6.cc/2026/10/179149415703031.png"],
+            ["االاساسي","https://up6.cc/2026/10/179149415703031.png"],
                 ["الاحتياطي","https://up6.cc/2026/10/179154692223211.png"],
                 ["الثالث","https://up6.cc/2026/10/179155204005593.png"],
                 ["الحارس 1","https://up6.cc/2026/10/1791561056771.png"],
                 ["الحارس 2","https://up6.cc/2026/10/179156105682842.png"],
                 ["الحارس 3","https://up6.cc/2026/10/179156105686093.png"]  
-             
+
+
             ]
         }
 
@@ -1106,7 +1486,7 @@ const leagues = [
     teams:[
 
         {
-            name:"الأطقم المميزة",
+            name:"man united 2008",
 
             logo:
             "https://up6.cc/2026/08/178811994776821.png",
@@ -1173,11 +1553,30 @@ const countries = [
 
     kits:[
 
-        ["الأساسي","https://a.top4top.io/p_3846uobyh6.png"],
-        ["الاحتياطي","https://k.top4top.io/p_3846thc6z0.png"],
-        ["الحارس الأساسي","https://k.top4top.io/p_38482qc449.png"],
-        ["الحارس الاحتياطي","https://a.top4top.io/p_38482ouu03.png"],
-        ["الحارس الثالث","https://c.top4top.io/p_3848i2q4q4.png"]
+        [
+            "الأساسي",
+            "https://a.top4top.io/p_3846uobyh6.png"
+        ],
+
+        [
+            "الاحتياطي",
+            "https://k.top4top.io/p_3846thc6z0.png"
+        ],
+
+        [
+            "الحارس الأساسي",
+            "https://k.top4top.io/p_38482qc449.png"
+        ],
+
+        [
+            "الحارس الاحتياطي",
+            "https://a.top4top.io/p_38482ouu03.png"
+        ],
+
+        [
+            "الحارس الثالث",
+            "https://c.top4top.io/p_3848i2q4q4.png"
+        ]
 
     ]
 },
@@ -1522,6 +1921,7 @@ const countries = [
 },
 
 
+
 {
     name:"iraq",
     flag:"🇮🇶",
@@ -1534,9 +1934,8 @@ const countries = [
         ["الثالث","https://up6.cc/2026/10/179175271411951.png"],
         ["الحارس 1","https://up6.cc/2026/10/17918142528722.png"],
         ["الحارس 2","https://up6.cc/2026/10/179181449637481.png"],
-        ["الحارس 3","https://up6.cc/2026/10/179181467259534.png"]
-        
-    ]
+        ["الحارس 3","https://up6.cc/2026/10/179181467259534.png"]        
+            ]
 },
 
 {
@@ -1969,9 +2368,10 @@ const $ = id => document.getElementById(id);
 let currentLeague = null;
 
 
-/* إظهار صفحة */
+/* إظهار صفحة مع دعم زر الرجوع في المتصفح وأندرويد */
+let restoringPageFromHistory = false;
 
-function showPage(id){
+function showPage(id, fromHistory = false){
 
     document
         .querySelectorAll(".page")
@@ -1979,13 +2379,45 @@ function showPage(id){
             p => p.classList.remove("active")
         );
 
-    $(id).classList.add("active");
+    const targetPage = $(id);
+    if(!targetPage) return;
+    targetPage.classList.add("active");
+
+    // كل انتقال بين صفحات الموقع يُضاف لسجل التصفح، حتى يعمل زر الرجوع الحقيقي.
+    if(!fromHistory && !restoringPageFromHistory){
+        const currentState = history.state;
+        if(!currentState || currentState.sitePage !== id){
+            history.pushState({sitePage:id}, "", "#" + encodeURIComponent(id));
+        }
+    }
+
+    if(id === "home" || id === "countries" || id === "about"){
+        setNav(id);
+    } else {
+        setNav("");
+    }
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
 }
+
+// تهيئة سجل الموقع والتعامل مع زر الرجوع في المتصفح أو زر الرجوع بجهاز أندرويد.
+(function setupPageHistory(){
+    if(!history.state || !history.state.sitePage){
+        history.replaceState({sitePage:"home"}, "", location.href);
+    }
+
+    window.addEventListener("popstate", function(event){
+        const pageId = event.state && event.state.sitePage;
+        if(!pageId || !$(pageId)) return;
+
+        restoringPageFromHistory = true;
+        showPage(pageId, true);
+        restoringPageFromHistory = false;
+    });
+})();
 
 
 /* تغيير زر الشريط السفلي */
@@ -2583,6 +3015,7 @@ document
 
 
 /* البحث */
+let searchScope = "home";
 
 $("search")
 .addEventListener(
@@ -2595,16 +3028,9 @@ $("search")
             .toLowerCase();
 
 
-        if(
-            $("countries")
-            .classList
-            .contains("active")
-        ){
-
+        if(searchScope === "countries"){
             renderCountries(q);
-
             return;
-
         }
 
 
@@ -2648,7 +3074,25 @@ $("search")
             ?
 
             leagueMatches
-                .map(leagueCard)
+                .map(league => {
+                    const teamIndex = league.teams.findIndex(
+                        team => team.name.toLowerCase().includes(q)
+                    );
+
+                    // لو البحث باسم فريق، افتح الدوري ثم الفريق المطلوب مباشرة.
+                    if(teamIndex !== -1){
+                        const team = league.teams[teamIndex];
+                        return `
+                            <button class="card league-card" onclick="openLeague('${league.id}');openTeam(${teamIndex})">
+                                <span class="league-icon">${league.icon}</span>
+                                <strong>${team.name}</strong>
+                                <span class="small">داخل ${league.name}</span>
+                            </button>
+                        `;
+                    }
+
+                    return leagueCard(league);
+                })
                 .join("")
 
             :
@@ -2669,11 +3113,325 @@ $("search")
 );
 
 
+
+/* =====================================================
+   عارض صور الرئيسية - إضافة فقط
+   يتبدل تلقائياً كل 4 ثواني + سحب يدوي
+===================================================== */
+
+function initHomeSlider(id){
+
+    const slider = $(id);
+
+    if(!slider) return;
+
+    const track = slider.querySelector(".home-slider-track");
+    const slides = Array.from(slider.querySelectorAll(".home-slide"));
+    const dotsBox = slider.querySelector(".home-slider-dots");
+
+    if(!track || !slides.length) return;
+
+    let index = 0;
+    let timer = null;
+    let startX = 0;
+    let startY = 0;
+    let dragging = false;
+
+    slides.forEach((slide, i) => {
+
+        const dot = document.createElement("span");
+
+        dot.className =
+            "home-slider-dot" +
+            (i === 0 ? " active" : "");
+
+        dot.addEventListener("click", function(e){
+
+            e.stopPropagation();
+            goTo(i, true);
+
+        });
+
+        dotsBox.appendChild(dot);
+
+    });
+
+    const dots = Array.from(
+        dotsBox.querySelectorAll(".home-slider-dot")
+    );
+
+    function update(){
+
+        track.style.transform =
+            `translateX(-${index * 100}%)`;
+
+        dots.forEach(
+            (dot, i) =>
+            dot.classList.toggle(
+                "active",
+                i === index
+            )
+        );
+
+    }
+
+    function goTo(next, restart){
+
+        index =
+            (next + slides.length) %
+            slides.length;
+
+        update();
+
+        if(restart){
+            restartTimer();
+        }
+
+    }
+
+    function next(){
+
+        goTo(index + 1, false);
+
+    }
+
+    function restartTimer(){
+
+        clearInterval(timer);
+
+        if(slides.length > 1){
+
+            timer =
+                setInterval(
+                    next,
+                    4000
+                );
+
+        }
+
+    }
+
+    slider.addEventListener(
+        "pointerdown",
+        function(e){
+
+            startX = e.clientX;
+            startY = e.clientY;
+            dragging = true;
+
+            slider.setPointerCapture?.(e.pointerId);
+
+        }
+    );
+
+    slider.addEventListener(
+        "pointerup",
+        function(e){
+
+            if(!dragging) return;
+
+            dragging = false;
+
+            const dx =
+                e.clientX - startX;
+
+            const dy =
+                e.clientY - startY;
+
+            if(
+                Math.abs(dx) > 45 &&
+                Math.abs(dx) > Math.abs(dy) &&
+                slides.length > 1
+            ){
+
+                if(dx < 0){
+                    goTo(index + 1, true);
+                }
+                else{
+                    goTo(index - 1, true);
+                }
+
+                return;
+
+            }
+
+            /* إعدادات وجهة كل صورة موجودة مباشرة داخل home-slide:
+               league = دوري، team = فريق داخل دوري، country = منتخب.
+               لتغيير الوجهة لاحقاً عدّل data-target-type وباقي data-* للصورة فقط. */
+            const activeSlide = slides[index];
+            const targetType = activeSlide.dataset.targetType;
+
+            if(targetType === "league"){
+                openLeague(activeSlide.dataset.targetId);
+            } else if(targetType === "team"){
+                const league = leagues.find(x => x.id === activeSlide.dataset.leagueId);
+                const teamIndex = league ? league.teams.findIndex(t => t.name.trim() === activeSlide.dataset.teamName.trim()) : -1;
+                if(league && teamIndex >= 0){
+                    currentLeague = league;
+                    openLeague(league.id);
+                    openTeam(teamIndex);
+                }
+            } else if(targetType === "country"){
+                const countryIndex = countries.findIndex(c => c.name.trim().toLowerCase() === activeSlide.dataset.targetName.trim().toLowerCase());
+                if(countryIndex >= 0){
+                    showPage("countries");
+                    setNav("countries");
+                    renderCountries($("search").value);
+                    openCountry(countryIndex);
+                }
+            }
+
+        }
+    );
+
+    slider.addEventListener(
+        "pointercancel",
+        function(){
+
+            dragging = false;
+
+        }
+    );
+
+    slider.addEventListener(
+        "mouseenter",
+        function(){
+
+            clearInterval(timer);
+
+        }
+    );
+
+    slider.addEventListener(
+        "mouseleave",
+        function(){
+
+            restartTimer();
+
+        }
+    );
+
+    update();
+    restartTimer();
+
+}
+
+initHomeSlider("leaguesSlider");
+initHomeSlider("countriesSlider");
+
+
+
+/* زر الرجوع للأعلى ومؤشر التمرير - إضافة فقط */
+(function(){
+    const backToTop = document.getElementById("backToTop");
+    if(!backToTop) return;
+
+    let ticking = false;
+
+    function updateBackToTop(){
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0
+            ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100))
+            : 0;
+
+        backToTop.style.background =
+            `conic-gradient(from -90deg, var(--yellow) 0%, var(--red) ${progress}%, rgba(255,255,255,.16) ${progress}%)`;
+
+        backToTop.classList.toggle("visible", window.scrollY > 220);
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", function(){
+        if(!ticking){
+            window.requestAnimationFrame(updateBackToTop);
+            ticking = true;
+        }
+    }, {passive:true});
+
+    window.addEventListener("resize", updateBackToTop, {passive:true});
+
+    backToTop.addEventListener("click", function(){
+        window.scrollTo({top:0, behavior:"smooth"});
+    });
+
+    updateBackToTop();
+})();
+
+
+
+/* تبديل الوضع الفاتح والداكن */
+(function(){
+ const toggle=document.getElementById("themeToggle");
+ if(!toggle) return;
+ toggle.addEventListener("click",function(){
+   document.body.classList.toggle("dark-mode");
+   const dark=document.body.classList.contains("dark-mode");
+   toggle.textContent=dark?"☀":"☾";
+   toggle.title=dark?"الوضع الفاتح":"الوضع الداكن";
+ });
+})();
+
 /* تشغيل الموقع */
 
 renderLeagues();
 
 renderCountries();
+
+
+
+/* فتح وإغلاق البحث واختيار مكان البحث */
+(function(){
+  const wrap = document.querySelector(".floating-search");
+  const toggle = $("searchToggle");
+  const field = $("search");
+  const tabs = $("searchScopeTabs");
+  if(!wrap || !toggle || !field || !tabs) return;
+
+  function updateScopeButtons(){
+    tabs.querySelectorAll("[data-search-scope]").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.searchScope === searchScope);
+    });
+  }
+
+  toggle.addEventListener("click", function(){
+    const opened = wrap.classList.toggle("open");
+    document.body.classList.toggle("search-mode", opened);
+    toggle.setAttribute("aria-label", opened ? "إغلاق البحث" : "فتح البحث");
+    if(opened){
+      searchScope = $("countries").classList.contains("active") ? "countries" : "home";
+      updateScopeButtons();
+      field.focus();
+    } else {
+      field.value="";
+      field.dispatchEvent(new Event("input",{bubbles:true}));
+    }
+  });
+
+  tabs.querySelectorAll("[data-search-scope]").forEach(btn => {
+    btn.addEventListener("click", function(){
+      searchScope = this.dataset.searchScope;
+      if(searchScope === "countries"){
+        showPage("countries");
+        setNav("countries");
+        renderCountries(field.value.trim().toLowerCase());
+      } else {
+        showPage("home");
+        setNav("home");
+        if(field.value.trim()){ field.dispatchEvent(new Event("input",{bubbles:true})); }
+        else { renderLeagues(); }
+      }
+      updateScopeButtons();
+      field.focus();
+    });
+  });
+
+  document.addEventListener("click", function(e){
+    if(!wrap.contains(e.target)) {
+      wrap.classList.remove("open");
+      document.body.classList.remove("search-mode");
+    }
+  });
+})();
 
 </script>
 
