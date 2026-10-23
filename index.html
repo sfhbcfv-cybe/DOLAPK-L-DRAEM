@@ -902,6 +902,9 @@ body.dark-mode .card-maker-coming{background:linear-gradient(115deg,rgba(255,208
 .news-heading-row .section-title{margin:0}
 .news-more{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;padding:9px 13px;border:1px solid rgba(255,208,0,.52);border-radius:13px;color:#fff;font-size:12px;font-weight:900;background:linear-gradient(135deg,rgba(255,208,0,.2),rgba(255,255,255,.07));box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 5px 16px rgba(0,0,0,.18),0 0 14px rgba(255,208,0,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
 .news-more:hover{transform:translateY(-2px);border-color:rgba(255,208,0,.9);box-shadow:0 8px 22px rgba(0,0,0,.22),0 0 19px rgba(255,208,0,.16)}
+.news-more.news-more-attention{animation:newsMoreGlow 1.55s ease-in-out infinite;border-color:rgba(255,208,0,.95);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 12px rgba(255,208,0,.38),0 0 25px rgba(255,208,0,.22)}
+@keyframes newsMoreGlow{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 0 8px rgba(255,208,0,.22),0 0 15px rgba(255,208,0,.12);transform:scale(1)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 0 17px rgba(255,208,0,.72),0 0 31px rgba(255,208,0,.38);transform:scale(1.035)}}
+@media(prefers-reduced-motion:reduce){.news-more.news-more-attention{animation:none}}
 .news-item.news-hidden{display:none}
 .news-item.news-item-reveal{animation:newsReveal .42s cubic-bezier(.2,.75,.25,1) both}
 @media(max-width:380px){.news-more{padding:8px 9px;font-size:11px}}
@@ -3209,16 +3212,42 @@ function renderCountries(filter=""){
 }
 
 
-/* إظهار الأخبار الإضافية بحركة ناعمة */
-function toggleMoreNews(){
-    const extras = Array.from(document.querySelectorAll('[data-news-extra="true"]'));
+/* تجهيز زر المزيد: أول 3 أخبار ظاهرة والباقي يفتح بالضغط */
+function initMoreNews(){
+    const list = document.querySelector('.news-list');
     const button = document.getElementById('newsMoreButton');
-    if(!button || !extras.length) return;
+    if(!list || !button) return;
+    const items = Array.from(list.querySelectorAll('.news-item'));
+    const extras = items.slice(3);
+    extras.forEach(item => {
+        item.setAttribute('data-news-extra','true');
+        item.classList.add('news-hidden');
+        item.classList.remove('news-item-reveal');
+        item.style.animationDelay = '';
+    });
+    button.hidden = extras.length === 0;
+    button.classList.toggle('news-more-attention', extras.length > 0);
+    button.setAttribute('aria-expanded','false');
+    button.innerHTML = 'المزيد <span aria-hidden="true">⌄</span>';
+}
+
+function toggleMoreNews(){
+    const button = document.getElementById('newsMoreButton');
+    const list = document.querySelector('.news-list');
+    if(!button || !list) return;
+    const items = Array.from(list.querySelectorAll('.news-item'));
+    const extras = items.slice(3);
+    if(!extras.length){ button.hidden = true; return; }
     const isExpanded = button.getAttribute('aria-expanded') === 'true';
     if(isExpanded){
-        extras.forEach(item => item.classList.add('news-hidden'));
+        extras.forEach(item => {
+            item.classList.add('news-hidden');
+            item.classList.remove('news-item-reveal');
+            item.style.animationDelay = '';
+        });
         button.setAttribute('aria-expanded','false');
         button.innerHTML = 'المزيد <span aria-hidden="true">⌄</span>';
+        button.classList.add('news-more-attention');
     } else {
         extras.forEach((item,index) => {
             item.classList.remove('news-hidden');
@@ -3229,8 +3258,12 @@ function toggleMoreNews(){
         });
         button.setAttribute('aria-expanded','true');
         button.innerHTML = 'عرض أقل <span aria-hidden="true">⌃</span>';
+        button.classList.remove('news-more-attention');
     }
 }
+
+// السكربت موجود أسفل الصفحة، لذلك عناصر الأخبار جاهزة للتهيئة مباشرة.
+initMoreNews();
 
 /* =====================================================
    إعدادات زر «المصدر» في الأخبار — عدّل بيانات الزر نفسه
