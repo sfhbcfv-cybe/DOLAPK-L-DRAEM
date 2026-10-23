@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<link rel="manifest" href="manifest.webmanifest">
 <title>دولابك لدريم</title>
 
     <link rel="icon" type="image/png" href="https://up6.cc/2026/10/179243031175041.png">
@@ -1169,7 +1171,7 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
     <div class="about-box">
 
         <h2>
-            الجروبات والحسابات
+            الجروبات و الحسابات
         </h2>
 
         <a
@@ -1198,10 +1200,22 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
         </a>
 
 
-        <div class="small-note">
+        <h2 style="margin-top:20px">
+            تنزيل التطبيق
+        </h2>
 
-            دوس على أي رابط علشان تفتحه.
+        <a
+            class="link-btn"
+            href="https://www.appcreator24.com/app4226210-9h34qz"
+            target="_blank"
+            rel="noopener noreferrer">
 
+            📲 تنزيل تطبيق دولابك لدريم
+
+        </a>
+
+        <div class="small-note" style="margin-top:10px">
+            دوس على أي رابط علشان تفتحه، وحمّل التطبيق واستمتع بدولابك لدريم على جهازك.
         </div>
 
     </div>
@@ -1648,7 +1662,7 @@ const leagues = [
         {
             name:"Barcelona 1999",
             logo:
-            "https://up6.cc/2026/10/179268914004471.png",
+            "https://up6.cc/2026/08/17877306242481.png",
             kits:[
                   ["Barcelona 1999","https://up6.cc/2026/10/179268351691312.png"], 
            ] 
@@ -3866,6 +3880,12 @@ restoreFavoritesFromDB();
     }
   });
 })();
+
+
+/* تسجيل خدمة التطبيق لدعم التثبيت من قائمة المتصفح */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
 
 </script>
 
