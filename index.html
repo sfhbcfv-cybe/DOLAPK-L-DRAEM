@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090909">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Dolabk L_Draem دولابك لدريم 26</title>
+<title>Dolabk L_Draem 26 دولابك لدريم</title>
 
     <link rel="icon" type="image/png" href="https://up6.cc/2026/10/179243031175041.png">
 
@@ -928,6 +928,68 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
 @media(prefers-reduced-motion:reduce){.news-item,.news-source{transition:none;animation:none!important}}
 
 
+
+
+/* زر المفضلة الزجاجي — تعديل خاص بخانة المفضلة فقط */
+.favorites-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:11px;
+    margin:22px 0 14px;
+    padding:15px 18px;
+    border:1px solid rgba(255,208,0,.42);
+    border-radius:20px;
+    color:#fff;
+    font-size:20px;
+    font-weight:900;
+    cursor:pointer;
+    background:linear-gradient(120deg,rgba(255,208,0,.19),rgba(255,255,255,.09),rgba(229,57,53,.18));
+    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
+    box-shadow:0 8px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(255,208,0,.09);
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+#favorites .favorites-back{margin:0 0 18px;font-size:16px;}
+#favorites .favorites-back span:first-child{font-size:21px;}
+#favorites .kits{margin-top:8px;}
+#favoritesGrid[hidden]{display:none!important}
+.favorites-toggle:active{transform:scale(.985)}
+.favorites-toggle:hover{border-color:rgba(255,208,0,.75);box-shadow:0 10px 32px rgba(0,0,0,.25),0 0 22px rgba(255,208,0,.18)}
+.favorites-toggle-icon{filter:drop-shadow(0 0 7px rgba(255,208,0,.65))}
+.favorites-toggle-arrow{margin-right:auto;font-size:22px;transition:transform .2s ease}
+.favorites-toggle[aria-expanded="false"] .favorites-toggle-arrow{transform:rotate(90deg)}
+body:not(.dark-mode) .favorites-toggle{color:#242424;background:linear-gradient(120deg,rgba(255,208,0,.24),rgba(255,255,255,.65),rgba(229,57,53,.13));border-color:rgba(180,130,0,.35)}
+
+
+/* صفحة صنع اللينك والصورة — زجاجية ومتناسقة مع دولابك */
+.maker-toggle{margin:0 0 18px;font-size:clamp(18px,3.5vw,20px);min-height:60px;text-shadow:0 1px 10px rgba(0,0,0,.28);border-color:rgba(255,208,0,.58);background:linear-gradient(120deg,rgba(255,208,0,.22),rgba(255,255,255,.12),rgba(229,57,53,.2)),rgba(20,20,24,.22)}
+.maker-toggle .favorites-toggle-icon{font-size:23px}
+.maker-toggle .favorites-toggle-arrow{font-weight:900;text-shadow:0 0 12px rgba(255,208,0,.35)}
+#maker .maker-page-head{margin-bottom:14px}
+#maker .maker-page-head h1{font-size:clamp(22px,4vw,30px);text-shadow:0 2px 18px rgba(0,0,0,.35)}
+#maker .maker-page-head p{font-size:clamp(14px,2.5vw,16px);line-height:1.9;color:var(--muted);font-weight:650}
+#maker #img512-tool{width:100%;min-height:calc(100vh - 150px)}
+#maker #img512-tool .i512-shell{width:min(100%,1100px);min-height:calc(100vh - 160px);margin:0 auto;border:1px solid rgba(255,255,255,.2);border-radius:24px;background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),radial-gradient(ellipse at 5% 0%,rgba(255,208,0,.12),transparent 42%),radial-gradient(ellipse at 100% 100%,rgba(229,57,53,.12),transparent 42%),rgba(12,14,20,.42);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);box-shadow:0 24px 80px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.12)}
+#maker #img512-tool .i512-content{padding-bottom:clamp(28px,6vh,64px)}
+#maker #img512-tool .i512-head{padding-top:clamp(22px,4vw,34px)}
+#maker #img512-tool .i512-title{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.35);font-weight:900}
+#maker #img512-tool .i512-subtitle{color:#f0f1f5;font-size:clamp(13px,2.5vw,15px);line-height:1.9}
+#maker #img512-tool .i512-badge{color:#fff;border-color:rgba(255,255,255,.22);background:linear-gradient(120deg,rgba(255,208,0,.14),rgba(255,255,255,.07),rgba(229,57,53,.12));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#maker #img512-tool .i512-drop,#maker #img512-tool .i512-preview-card,#maker #img512-tool .i512-link-panel,#maker #img512-tool .i512-note{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 24px rgba(0,0,0,.12)}
+#maker #img512-tool .i512-drop{border-color:rgba(255,255,255,.28);background:linear-gradient(125deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),rgba(10,12,18,.22)}
+#maker #img512-tool .i512-drop-title,#maker #img512-tool .i512-preview-label,#maker #img512-tool .i512-key-label{color:#fff;font-weight:900}
+#maker #img512-tool .i512-drop-hint,#maker #img512-tool .i512-meta,#maker #img512-tool .i512-link-help,#maker #img512-tool .i512-note{color:#e0e4ec}
+#maker #img512-tool .i512-btn{border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 7px 20px rgba(0,0,0,.18);font-weight:900}
+#maker #img512-tool .i512-primary{color:#fff;background:linear-gradient(120deg,rgba(255,208,0,.25),rgba(255,255,255,.12),rgba(229,57,53,.22)),rgba(24,24,28,.34);border-color:rgba(255,208,0,.52);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+#maker #img512-tool .i512-primary:hover:not(:disabled){border-color:rgba(255,208,0,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 9px 26px rgba(0,0,0,.22),0 0 18px rgba(255,208,0,.12)}
+#maker #img512-tool .i512-secondary{color:#fff;background:linear-gradient(125deg,rgba(255,255,255,.14),rgba(255,255,255,.055)),rgba(18,18,22,.28);border-color:rgba(255,255,255,.3)}
+#maker #img512-tool .i512-key,#maker #img512-tool .i512-link-output{background:rgba(0,0,0,.3);color:#fff;border-color:rgba(255,255,255,.27)}
+#maker #img512-tool .i512-note{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.14);font-size:12px}
+#maker #img512-tool[hidden]{display:none!important}
+body:not(.dark-mode) #maker #img512-tool .i512-title,body:not(.dark-mode) #maker #img512-tool .i512-drop-title,body:not(.dark-mode) #maker #img512-tool .i512-preview-label,body:not(.dark-mode) #maker #img512-tool .i512-key-label{color:#fff}
+@media(max-width:600px){#maker #img512-tool{padding:8px 0}#maker #img512-tool .i512-shell{min-height:calc(100vh - 140px);border-radius:20px}#maker .maker-page-head p{padding:0 6px}}
 </style>
 </head>
 
@@ -971,34 +1033,18 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
         <p class="news-intro">آخر الإضافات والتطويرات في دولابك لدريم.</p>
         <div class="news-list">
             <article class="news-item">
-                <span class="news-icon" aria-hidden="true">👕</span>
+                <span class="news-icon" aria-hidden="true">🖼</span>
                 <div class="news-copy">
-                    <strong>سيتم تنزيل تيشرت برشلونة 2009</strong>
-                    <span>يوم 29/10/2026 الساعة 8:00 مساءً</span>
+                    <strong>تم اضافة صنع صورة ولينك للصورة</strong>
+                    <span>صنع صورة 512 ولينك للتنزيل على اللعبة</span>
                 </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="leaguePage" data-news-section="stars" data-news-shirt="">المصدر ←</button>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
              </article>
-            <article class="news-item">
-                <span class="news-icon" aria-hidden="true">✨️</span>
-                <div class="news-copy">
-                    <strong>تم اضافة خانة المنتخبات المميزة القديمة </strong>
-                    <span>تم اضافة المنتخبات القديمة المميزة يمكنك اقتراح منتخب بالتواصل من صفحة من نحن</span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="countries" data-news-section="stars countries" data-news-shirt="">المصدر ←</button>
-            </article>
             <article class="news-item">
                 <span class="news-icon" aria-hidden="true">➕</span>
                 <div class="news-copy">
-                    <strong>سيتم تنزيل تيشرت مان سيتي مرة اخرة لزيادة تفاصيله</strong>
-                    <span>يوم 29/10/2026 الساعة 8:00 مساءً</span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="leaguePage" data-news-section="english" data-news-shirt="Man City">المصدر ←</button>
-            </article>
-            <article class="news-item">
-                <span class="news-icon" aria-hidden="true">🖼</span>
-                <div class="news-copy">
-                    <strong>صناعة طقمك الممييز</strong>
-                    <span>يمكمك صناعة تيشرت لنفسك من اي شركة ( قريباً ) </span>
+                    <strong>صنع بطاقة خاصة بك في دريم ليج</strong>
+                    <span>يمكنك صنع بطاقة لاعب خاصة بك في اللعبة ( قريباً )</span>
                 </div>
                 <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
             </article>
@@ -1012,22 +1058,14 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
                 <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
             </article>
             <article class="news-item">
-                <span class="news-icon" aria-hidden="true">⭐️</span>
+                <span class="news-icon" aria-hidden="true">✨️</span>
                 <div class="news-copy">
-                    <strong>صنع صورة ولينك للصورة بحجم 512</strong>
-                    <span>صنع صورة 512 و لينك للعبة قريباً</span>
+                    <strong>اضافة خانة الاطقم المميزة القديمة في المنتخبات </strong>
+                    <span>اضافة اطقم مميزة قديمة للمنتخبات يمكنك اقتراح تيشرت من التواصل في شاشة من نحن</span>
                 </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="countries" data-news-section="stars countries" data-news-shirt="">المصدر ←</button>
             </article>
-            <article class="news-item">
-                <span class="news-icon" aria-hidden="true">🪪</span>
-                <div class="news-copy">
-                    <strong>قائمة صنع البطاقة</strong>
-                    <span>يمكنك صنع بطاقة دريم ليج لنفسك و و ضع صورتك ( قريباً ) </span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
-            </article>
-        </div>
+       </div>
     </section>
 
 
@@ -1170,35 +1208,12 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
     <div class="hero">
         <h1>🗄️ دولابك</h1>
         <p>كل اللوجوهات والأطقم اللي حفظتها في مكان واحد ⭐</p>
-    
     </div>
-    <div class="card-maker-coming" aria-label=صنع طقم مخصص بنقسك">
-        <div class="card-maker-icon">👕</div>
-        <div class="card-maker-copy">
-            <strong>صنع طقم مخصص لنفسك</strong>
-            <span>اصنع طقم لنفسك من اي شركة</span>
-        </div>
-        <span class="coming-soon-badge">قريباً</span>
-        <span class="card-maker-shine" aria-hidden="true"></span>
-    </div>
-    
-    </div>
-    <div class="card-maker-coming" aria-label="صنع لينك صورة و لينك قريباً">
+    <div class="card-maker-coming" aria-label="صناعة بطاقتك قريباً">
         <div class="card-maker-icon">🪪</div>
         <div class="card-maker-copy">
             <strong>صناعة بطاقتك</strong>
             <span>صمّم بطاقتك الخاصة داخل دولابك</span>
-        </div>
-        <span class="coming-soon-badge">قريباً</span>
-        <span class="card-maker-shine" aria-hidden="true"></span>
-    </div>
-    
-    </div>
-    <div class="card-maker-coming" aria-label="صناعة بطاقتك قريباً">
-        <div class="card-maker-icon">URL</div>
-        <div class="card-maker-copy">
-            <strong>صنع لينك وصورة</strong>
-            <span>اصنع صورة بجودة 512×512 ولينك للصورة</span>
         </div>
         <span class="coming-soon-badge">قريباً</span>
         <span class="card-maker-shine" aria-hidden="true"></span>
@@ -1214,10 +1229,350 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
         <span class="card-maker-shine" aria-hidden="true"></span>
     </div>
 
-    <h2 class="section-title">⭐ المفضلة</h2>
+    <button id="favoritesToggle" class="favorites-toggle" type="button"
+        onclick="openFavoritesPage()" aria-label="فتح صفحة المفضلة">
+        <span class="favorites-toggle-icon" aria-hidden="true">⭐</span>
+        <span>المفضلة</span>
+        <span class="favorites-toggle-arrow" aria-hidden="true">←</span>
+    </button>
+
+    <button id="makerToggle" class="favorites-toggle maker-toggle" type="button"
+        onclick="openMakerPage()" aria-label="فتح صفحة صنع اللينك والصورة">
+        <span class="favorites-toggle-icon" aria-hidden="true">🖼️</span>
+        <span>صنع اللينك والصورة</span>
+        <span class="favorites-toggle-arrow" aria-hidden="true">←</span>
+    </button>
+</section>
+
+<!-- صفحة المفضلة المستقلة -->
+<section id="favorites" class="page">
+    <div class="hero">
+        <h1>⭐ المفضلة</h1>
+        <p>كل الأطقم واللوجوهات اللي حفظتها في صفحة واحدة.</p>
+    </div>
+    <button class="favorites-toggle favorites-back" type="button" onclick="showPage('dolabak')">
+        <span aria-hidden="true">→</span>
+        <span>الرجوع إلى دولابك</span>
+    </button>
     <div id="favoritesGrid" class="kits">
         <div class="favorite-empty">لسه مفيش مفضلات — اضغط على النجمة فوق أي لوجو أو طقم علشان تحفظه هنا.</div>
     </div>
+</section>
+
+<!-- صفحة مستقلة لصنع اللينك والصورة -->
+<section id="maker" class="page">
+    <div class="hero maker-page-head">
+        <h1>🖼️ صنع اللينك والصورة</h1>
+        <p>جهّز صورة الطقم بمقاس 512×512 ثم نزّلها أو اصنع رابطها.</p>
+    </div>
+    <button class="favorites-toggle favorites-back" type="button" onclick="showPage('dolabak')">
+        <span aria-hidden="true">→</span>
+        <span>الرجوع إلى دولابك</span>
+    </button>
+    <section id="img512-tool" dir="rtl" lang="ar">
+  <style>
+    #img512-tool {
+      --i512-bg: #0d1222;
+      --i512-card: rgba(255,255,255,.075);
+      --i512-line: rgba(255,255,255,.14);
+      --i512-text: #f8fafc;
+      --i512-muted: #a9b5ca;
+      --i512-gold: #fbbf24;
+      --i512-red: #fb7185;
+      color: var(--i512-text);
+      font-family: inherit;
+      width: 100%;
+      padding: clamp(10px, 3vw, 24px);
+      box-sizing: border-box;
+    }
+    #img512-tool * { box-sizing: border-box; }
+    #img512-tool .i512-shell {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--i512-line);
+      border-radius: 28px;
+      background:
+        radial-gradient(ellipse at 5% 0%, rgba(251,191,36,.13), transparent 36%),
+        radial-gradient(ellipse at 100% 100%, rgba(251,113,133,.13), transparent 36%),
+        var(--i512-bg);
+      box-shadow: 0 24px 70px rgba(0,0,0,.24);
+    }
+    #img512-tool .i512-head { text-align: center; padding: clamp(24px, 5vw, 42px) 20px 24px; }
+    #img512-tool .i512-mark {
+      display: inline-grid; place-items: center; width: 68px; height: 68px;
+      border-radius: 22px; margin-bottom: 15px; color: #171717; font-weight: 950;
+      font-size: 21px; letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--i512-gold), var(--i512-red));
+      box-shadow: 0 12px 32px rgba(251,113,133,.2);
+    }
+    #img512-tool .i512-title { margin: 0; font-size: clamp(23px, 5vw, 34px); line-height: 1.3; font-weight: 850; }
+    #img512-tool .i512-subtitle { max-width: 480px; margin: 10px auto 0; color: var(--i512-muted); font-size: 14px; line-height: 1.9; }
+    #img512-tool .i512-content { padding: 0 clamp(14px, 4vw, 30px) 28px; }
+    #img512-tool .i512-drop {
+      display: block; text-align: center; padding: clamp(24px, 5vw, 38px) 16px;
+      border: 1.5px dashed rgba(251,191,36,.55); border-radius: 22px;
+      background: rgba(255,255,255,.035); cursor: pointer; outline: none;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    #img512-tool .i512-drop:hover, #img512-tool .i512-drop:focus, #img512-tool .i512-drop.i512-drag {
+      border-color: var(--i512-gold); background: rgba(251,191,36,.075); transform: translateY(-1px);
+    }
+    #img512-tool .i512-upload-icon {
+      width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 19px;
+      display: grid; place-items: center; font-size: 25px;
+      background: linear-gradient(145deg, rgba(251,191,36,.18), rgba(251,113,133,.15));
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    #img512-tool .i512-drop-title { display: block; font-weight: 800; font-size: 17px; margin-bottom: 7px; }
+    #img512-tool .i512-drop-hint { display: block; color: var(--i512-muted); font-size: 12px; line-height: 1.8; }
+    #img512-tool .i512-file { display: none; }
+    #img512-tool .i512-status { min-height: 24px; margin: 13px 3px 0; color: var(--i512-muted); font-size: 12px; line-height: 1.8; }
+    #img512-tool .i512-status:empty { display: none; }
+    #img512-tool .i512-previews { display: none; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 20px; }
+    #img512-tool .i512-previews.i512-show { display: grid; }
+    #img512-tool .i512-preview-card {
+      min-width: 0; padding: 12px; border-radius: 19px;
+      border: 1px solid var(--i512-line); background: rgba(255,255,255,.045);
+    }
+    #img512-tool .i512-preview-img {
+      display: block; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 12px;
+      background-color: #171c2b;
+      background-image: linear-gradient(45deg,#242b3d 25%,transparent 25%),linear-gradient(-45deg,#242b3d 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#242b3d 75%),linear-gradient(-45deg,transparent 75%,#242b3d 75%);
+      background-size: 18px 18px; background-position: 0 0,0 9px,9px -9px,-9px 0;
+    }
+    #img512-tool .i512-preview-label { margin: 11px 0 5px; font-size: 13px; font-weight: 800; }
+    #img512-tool .i512-meta { color: var(--i512-muted); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
+    #img512-tool .i512-actions { display: flex; gap: 10px; margin-top: 20px; }
+    #img512-tool .i512-btn {
+      min-height: 48px; padding: 12px 16px; border-radius: 15px; border: 1px solid transparent;
+      font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; transition: transform .18s, opacity .18s;
+    }
+    #img512-tool .i512-btn:hover:not(:disabled) { transform: translateY(-1px); }
+    #img512-tool .i512-btn:disabled { opacity: .38; cursor: not-allowed; }
+    #img512-tool .i512-primary { flex: 1; color: #191919; background: linear-gradient(100deg,var(--i512-gold),var(--i512-red)); box-shadow: 0 9px 25px rgba(251,113,133,.12); }
+    #img512-tool .i512-secondary { color: var(--i512-text); background: rgba(255,255,255,.055); border-color: var(--i512-line); }
+    #img512-tool .i512-link-panel { margin-top: 18px; padding: 16px; border: 1px solid var(--i512-line); border-radius: 18px; background: rgba(255,255,255,.035); }
+    #img512-tool .i512-key-label { display:block; margin-bottom:8px; font-size:13px; font-weight:800; }
+    #img512-tool .i512-key, #img512-tool .i512-link-output { width:100%; min-width:0; min-height:46px; padding:11px 13px; border-radius:12px; border:1px solid var(--i512-line); background:rgba(0,0,0,.2); color:var(--i512-text); font:inherit; font-size:13px; outline:none; }
+    #img512-tool .i512-key:focus, #img512-tool .i512-link-output:focus { border-color:var(--i512-gold); }
+    #img512-tool .i512-link-btn { width:100%; margin-top:10px; }
+    #img512-tool .i512-link-help { margin:9px 2px 0; color:var(--i512-muted); font-size:11px; line-height:1.8; }
+    #img512-tool .i512-link-result { display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; margin-top:12px; }
+    #img512-tool .i512-link-result[hidden] { display:none; }
+    #img512-tool .i512-link-output { direction:ltr; text-align:left; }
+    #img512-tool .i512-link-result .i512-btn { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:9px 12px; text-decoration:none; font-size:12px; }
+    #img512-tool .i512-note {
+      margin: 16px 2px 0; padding: 12px 14px; border-radius: 14px;
+      color: var(--i512-muted); background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07);
+      font-size: 11px; line-height: 1.9;
+    }
+    #img512-tool .i512-toast { display:none; margin-top:12px; padding:12px 14px; border-radius:13px; color:#bbf7d0; background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.25); font-size:13px; }
+    #img512-tool .i512-toast.i512-show { display:block; }
+    #img512-tool .i512-badge { display:inline-flex; align-items:center; gap:6px; margin-top:16px; padding:7px 11px; border:1px solid var(--i512-line); border-radius:999px; color:#d5deed; font-size:11px; background:rgba(255,255,255,.04); }
+    @media(max-width:440px) {
+      #img512-tool .i512-previews { gap:9px; }
+      #img512-tool .i512-preview-card { padding:8px; border-radius:15px; }
+      #img512-tool .i512-actions { flex-direction: column; }
+      #img512-tool .i512-secondary { width:100%; }
+      #img512-tool .i512-link-result { grid-template-columns:1fr; }
+    }
+    @media(prefers-reduced-motion:reduce) { #img512-tool * { transition:none !important; } }
+  </style>
+
+  <div class="i512-shell">
+    <header class="i512-head">
+      <div class="i512-mark" aria-hidden="true">512</div>
+      <h2 class="i512-title">صنع اللينك والصورة</h2>
+      <p class="i512-subtitle">اختار صورة الطقم وجهّزها بمقاس 512×512، وبعدها تقدر ترفعها وتعمل لها لينك.</p>
+      <div class="i512-badge"><span aria-hidden="true">🔒</span> ارفع طقمك وجهّز رابط مشاركته</div>
+    </header>
+
+    <div class="i512-content">
+      <label class="i512-drop" data-i512-drop for="i512-file" tabindex="0" role="button">
+        <span class="i512-upload-icon" aria-hidden="true">↥</span>
+        <span class="i512-drop-title">اختار صورة الطقم من جهازك</span>
+        <span class="i512-drop-hint">اضغط هنا أو اسحب الصورة إلى هذه المنطقة<br>JPG · PNG · WebP والصيغ التي يدعمها متصفحك</span>
+      </label>
+      <input class="i512-file" data-i512-file id="i512-file" type="file" accept="image/*">
+      <div class="i512-status" data-i512-status aria-live="polite">اختار صورة الطقم للبدء.</div>
+
+      <div class="i512-previews" data-i512-previews>
+        <div class="i512-preview-card">
+          <img class="i512-preview-img" data-i512-original alt="معاينة الصورة الأصلية">
+          <div class="i512-preview-label">الصورة الأصلية</div>
+          <div class="i512-meta" data-i512-original-meta>—</div>
+        </div>
+        <div class="i512-preview-card">
+          <img class="i512-preview-img" data-i512-result alt="معاينة النتيجة">
+          <div class="i512-preview-label">النتيجة · 512×512</div>
+          <div class="i512-meta" data-i512-result-meta>—</div>
+        </div>
+      </div>
+
+      <div class="i512-actions">
+        <button class="i512-btn i512-primary" data-i512-download disabled>تنزيل الطقم PNG ↓</button>
+        <button class="i512-btn i512-secondary" data-i512-reset disabled>اختيار طقم آخر</button>
+      </div>
+
+      <div class="i512-link-panel">
+        <button class="i512-btn i512-primary i512-link-btn" data-i512-link disabled>صنع لينك</button>
+        <p class="i512-link-help">ملاحظة: احفظ الصورة أولاً على جهازك، ثم اضغط على «صنع لينك» لفتح موقع up6.cc ورفع الصورة يدويًا.</p>
+        <div class="i512-link-result" data-i512-link-result hidden>
+          <input class="i512-link-output" data-i512-link-output readonly aria-label="رابط الصورة الناتج">
+          <button class="i512-btn i512-secondary i512-copy" data-i512-copy type="button">نسخ الرابط</button>
+          <a class="i512-btn i512-secondary i512-open" data-i512-open target="_blank" rel="noopener noreferrer">فتح الصورة</a>
+        </div>
+      </div>
+      <div class="i512-toast" data-i512-toast role="status"></div>
+      <div class="i512-note">الصورة التي أبعادها بالفعل 512×512 تُنزّل بملفها الأصلي دون إعادة تحجيم أو ضغط. الصور الأخرى توضع داخل مربع 512×512 مع الحفاظ على تناسبها دون قص، وتُحفظ بصيغة PNG للحفاظ على الشفافية.</div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    const root = document.getElementById('img512-tool');
+    if (!root || root.dataset.i512Ready === '1') return;
+    root.dataset.i512Ready = '1';
+    const q = s => root.querySelector(s);
+    const input = q('[data-i512-file]'), drop = q('[data-i512-drop]');
+    const status = q('[data-i512-status]'), previews = q('[data-i512-previews]');
+    const originalPreview = q('[data-i512-original]'), resultPreview = q('[data-i512-result]');
+    const originalMeta = q('[data-i512-original-meta]'), resultMeta = q('[data-i512-result-meta]');
+    const downloadBtn = q('[data-i512-download]'), resetBtn = q('[data-i512-reset]'), toast = q('[data-i512-toast]');
+    const linkBtn = q('[data-i512-link]'), linkResult = q('[data-i512-link-result]');
+    const linkOutput = q('[data-i512-link-output]'), copyBtn = q('[data-i512-copy]'), openLink = q('[data-i512-open]');
+    let sourceURL = null, resultURL = null, outputBlob = null, outputName = '', already512 = false, sequence = 0, uploading = false;
+
+    const revoke = url => { if (url) URL.revokeObjectURL(url); };
+    const say = text => { status.textContent = text; };
+    const clearToast = () => toast.classList.remove('i512-show');
+    const notify = text => { toast.textContent = text; toast.classList.add('i512-show'); };
+    const bytes = n => n < 1024 ? n + ' بايت' : n < 1048576 ? (n / 1024).toFixed(1) + ' كيلوبايت' : (n / 1048576).toFixed(2) + ' ميجابايت';
+    const baseName = name => (name.replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]/g, '_').trim() || 'image');
+
+    function reset(keepStatus = false) {
+      sequence++;
+      revoke(sourceURL); revoke(resultURL);
+      sourceURL = resultURL = null; outputBlob = null; outputName = ''; already512 = false;
+      originalPreview.removeAttribute('src'); resultPreview.removeAttribute('src');
+      previews.classList.remove('i512-show');
+      originalMeta.textContent = resultMeta.textContent = '—';
+      downloadBtn.disabled = resetBtn.disabled = true; linkBtn.disabled = false;
+      linkResult.hidden = true; linkOutput.value = ''; openLink.removeAttribute('href');
+      input.value = ''; clearToast();
+      if (!keepStatus) say('اختار صورة الطقم للبدء.');
+    }
+
+    const toBlob = (canvas, type) => new Promise((resolve, reject) => {
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('تعذر تجهيز الطقم للتنزيل.')), type);
+    });
+
+    async function loadFile(file) {
+      if (!file) return;
+      if (!file.type.startsWith('image/')) { say('الملف المختار ليس صورة طقم. اختار صورة من فضلك.'); return; }
+      reset(true);
+      const mySequence = sequence;
+      clearToast();
+      sourceURL = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = async () => {
+        if (mySequence !== sequence) return;
+        try {
+          const w = img.naturalWidth, h = img.naturalHeight;
+          if (!w || !h) throw new Error('تعذر قراءة أبعاد الصورة.');
+          originalPreview.src = sourceURL;
+          originalMeta.textContent = `${w} × ${h} بكسل · ${bytes(file.size)} · ${file.type || 'صيغة غير معروفة'}`;
+          previews.classList.add('i512-show');
+          already512 = w === 512 && h === 512;
+          if (already512) {
+            outputBlob = file;
+            resultURL = URL.createObjectURL(file);
+            resultPreview.src = resultURL;
+            outputName = baseName(file.name) + (file.name.match(/(\.[^.]+)$/)?.[1] || '.png');
+            resultMeta.textContent = `512 × 512 بكسل · ${bytes(file.size)} · الملف الأصلي`;
+            say('صورة الطقم أصلًا 512×512، جاهزة للتنزيل دون إعادة ضغط أو تعديل.');
+          } else {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 512;
+            const ctx = canvas.getContext('2d', { alpha: true });
+            const scale = Math.min(512 / w, 512 / h);
+            const dw = Math.round(w * scale), dh = Math.round(h * scale);
+            ctx.clearRect(0, 0, 512, 512);
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, Math.round((512 - dw) / 2), Math.round((512 - dh) / 2), dw, dh);
+            const blob = await toBlob(canvas, 'image/png');
+            if (mySequence !== sequence) return;
+            outputBlob = blob;
+            resultURL = URL.createObjectURL(blob);
+            resultPreview.src = resultURL;
+            outputName = baseName(file.name) + '_512.png';
+            resultMeta.textContent = `512 × 512 بكسل · ${bytes(blob.size)} · PNG`;
+            say('الطقم جاهز للتنزيل. حافظنا على تناسب الصورة من غير قص.');
+          }
+          downloadBtn.disabled = false;
+          resetBtn.disabled = false;
+          linkBtn.disabled = false;
+        } catch (error) {
+          say(error.message || 'حدث خطأ أثناء معالجة الصورة.');
+          downloadBtn.disabled = true;
+        }
+      };
+      img.onerror = () => {
+        if (mySequence === sequence) say('تعذر فتح الصورة. جرّب ملف JPG أو PNG أو WebP.');
+      };
+      img.src = sourceURL;
+      resetBtn.disabled = false;
+    }
+
+    input.addEventListener('change', e => loadFile(e.target.files && e.target.files[0]));
+    drop.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+    });
+    ['dragenter','dragover'].forEach(type => drop.addEventListener(type, e => { e.preventDefault(); drop.classList.add('i512-drag'); }));
+    ['dragleave','drop'].forEach(type => drop.addEventListener(type, e => { e.preventDefault(); drop.classList.remove('i512-drag'); }));
+    drop.addEventListener('drop', e => loadFile(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]));
+    downloadBtn.addEventListener('click', () => {
+      if (!outputBlob) return;
+      const url = URL.createObjectURL(outputBlob);
+      const a = document.createElement('a');
+      a.href = url; a.download = outputName || 'image_512.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      notify(already512 ? 'تم تنزيل ملف الطقم الأصلي كما هو.' : 'تم تجهيز وتنزيل الطقم بأبعاد 512×512.');
+    });
+    resetBtn.addEventListener('click', () => { reset(); input.click(); });
+
+    async function makePngBlob(blob) {
+      const tempUrl = URL.createObjectURL(blob);
+      try {
+        const img = new Image();
+        await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = () => reject(new Error('تعذر تجهيز نسخة PNG.')); img.src = tempUrl; });
+        const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 512;
+        const ctx = canvas.getContext('2d', { alpha: true });
+        ctx.clearRect(0, 0, 512, 512); ctx.drawImage(img, 0, 0, 512, 512);
+        return await toBlob(canvas, 'image/png');
+      } finally { URL.revokeObjectURL(tempUrl); }
+    }
+
+    linkBtn.addEventListener('click', () => {
+      window.open('https://up6.cc/', '_blank', 'noopener,noreferrer');
+    });
+    copyBtn.addEventListener('click', async () => {
+      if (!linkOutput.value) return;
+      try {
+        await navigator.clipboard.writeText(linkOutput.value);
+        notify('تم نسخ الرابط.');
+      } catch (_) {
+        linkOutput.focus(); linkOutput.select();
+        try { document.execCommand('copy'); notify('تم نسخ الرابط.'); }
+        catch (_) { notify('حدد الرابط وانسخه يدويًا.'); }
+      }
+    });
+  })();
+  </script>
+</section>
 </section>
 
 
@@ -1432,9 +1787,9 @@ const leagues = [
             logo:
             "https://up6.cc/2026/08/178804323619851.png",
             kits:[
-                ["الأساسي","https://up6.cc/2026/10/179244231373641.png"],
-                ["الاحتياطي","https://up6.cc/2026/10/179244231379542.png"],
-                ["الثالث","https://up6.cc/2026/10/179244231382913.png"],
+                ["الأساسي","https://up6.cc/2026/10/179320025223811.png"],
+                ["الاحتياطي","https://up6.cc/2026/10/179318719216241.png"],
+                ["الثالث","https://up6.cc/2026/10/179318839346321.png"],
                 ["الحارس 1","https://up6.cc/2026/08/178804074249051.png"],
                 ["الحارس 2","https://up6.cc/2026/08/178804155240461.png"],
                 ["الحارس 3","https://up6.cc/2026/08/178804275324171.png"]
@@ -1738,10 +2093,11 @@ const leagues = [
     teams:[
 
         {
-            name:" جاري صنع ( Barcelona 2009 )",
+            name:"Barcelona 2009",
             logo:
-            "",
+            "https://up6.cc/2026/08/17877306242481.png",
             kits:[
+                   ["Barcelona2009","https://up6.cc/2026/10/179319619633441.png"],
            ] 
         },
         
@@ -1776,8 +2132,7 @@ const leagues = [
 
 const countries = [
 
-
-    {
+{
     name:"stars countries",
     flag:"✨️",
 
@@ -2658,6 +3013,7 @@ function showPage(id, fromHistory = false){
     const targetPage = $(id);
     if(!targetPage) return;
     targetPage.classList.add("active");
+    if(id === "favorites") renderFavorites();
 
     // كل انتقال بين صفحات الموقع يُضاف لسجل التصفح، حتى يعمل زر الرجوع الحقيقي.
     if(!fromHistory && !restoringPageFromHistory){
@@ -3061,6 +3417,16 @@ function removeFavorite(name,url){
     saveFavorites(getFavorites().filter(item => !(item.name === name && item.url === url)));
     renderFavorites();
 }
+function openFavoritesPage(){
+    renderFavorites();
+    showPage("favorites");
+}
+
+function openMakerPage(){
+    showPage("maker");
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
 function renderFavorites(){
     const grid = $("favoritesGrid");
     if(!grid) return;
